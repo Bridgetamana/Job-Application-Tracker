@@ -28,7 +28,7 @@ const Signup = () => {
                     type="firstname"
                     autoComplete="firstname"
                     required
-                    className="block w-full rounded-md outline-none ring-1 py-1.5 px-2 text-gray-900 shadow-sm focus:ring-[1px] focus:ring-teal-400"
+                    className="block w-full rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-900 shadow-sm focus:ring-[1px] focus:ring-teal"
                   />
                 </div>
               </div>
@@ -47,7 +47,7 @@ const Signup = () => {
                     type="lastname"
                     autoComplete="lastname"
                     required
-                    className="block w-full rounded-md outline-none ring-1 py-1.5 px-2 text-gray-900 shadow-sm focus:ring-[1px] focus:ring-teal-400"
+                    className="block w-full rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-900 shadow-sm focus:ring-[1px] focus:ring-teal"
                   />
                 </div>
               </div>
@@ -63,7 +63,7 @@ const Signup = () => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="block w-full rounded-md outline-none ring-1 py-1.5 px-2 text-gray-900 shadow-sm focus:ring-[1px] focus:ring-teal-400"
+                  className="block w-full rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-900 shadow-sm focus:ring-[1px] focus:ring-teal"
                 />
               </div>
             </div>
@@ -84,7 +84,7 @@ const Signup = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded-md outline-none ring-1 py-1.5 px-2 text-gray-900 shadow-sm focus:ring-[1px] focus:ring-teal-400"
+                  className="block w-full rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-900 shadow-sm focus:ring-[1px] focus:ring-teal"
                 />
               </div>
             </div>
@@ -92,7 +92,7 @@ const Signup = () => {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-teal-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-700"
+                className="flex w-full justify-center rounded-md bg-teal px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-dark"
               >
                Sign up
               </button>
@@ -103,7 +103,7 @@ const Signup = () => {
             Already have an account?{" "}
             <Link
               to="/login"
-              className="font-semibold leading-6 text-teal-600 hover:underline"
+              className="font-semibold leading-6 text-teal hover:underline"
             >
               Login
             </Link>

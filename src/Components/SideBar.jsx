@@ -1,13 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SidebarMenuItem } from "./SidebarMenuItem";
-import { MdOutlineMenu } from "react-icons/md";
-import { IoIosArrowDown } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { MdOutlineMenu, MdOutlineLogout } from "react-icons/md";
+import { IoIosArrowDown, IoMdSettings } from "react-icons/io";
+import { Link, useLocation } from "react-router-dom";
 
 const SideBar = () => {
+  
+  const dropdownMenu = [
+    {
+      id: 0,
+      label: "Settings",
+      icon: <IoMdSettings />,
+      path: "settings",
+    },
+    {
+      id: 1,
+      label: "Log Out",
+      icon: <MdOutlineLogout />,
+      path: "/login",
+    },
+  ];
+
   const menuItems = SidebarMenuItem();
   const [openSidebar, setOpenSidebar] = useState(false);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [pageTitle, setPageTitle] = useState("");
+  const location = useLocation();
 
   const toggleMenu = () => {
     setOpenSidebar(!openSidebar);
@@ -17,28 +35,48 @@ const SideBar = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
+  const findPageTitle = () => {
+    const currentItem = menuItems.find((item) =>
+      location.pathname.endsWith(item.path)
+    );
+    const currentdropdownItem = dropdownMenu.find((item) =>
+      location.pathname.endsWith(item.path)
+    );
+    if (currentItem) {
+      setPageTitle(currentItem.label);
+    } else if (currentdropdownItem) {
+      setPageTitle(currentdropdownItem.label);
+    } else {
+      setPageTitle("");
+    }
+  };
+
+  useEffect(() => {
+    findPageTitle();
+  }, [location.pathname, menuItems]);
+
   return (
     <div>
-      <nav className="border-b border-gray-200 px-4 py-2.5 fixed left-0 right-0 top-0 z-50 lg:hidden">
+      <nav className="border-b border-gray-light px-4 py-2.5 fixed left-0 right-0 top-0 z-50 lg:hidden bg-white">
         <div className="flex gap-8 items-center">
           <button className="text-2xl" onClick={toggleMenu}>
             <MdOutlineMenu />
           </button>
-          <h3>Home</h3>
+          <h3>{pageTitle}</h3>
         </div>
       </nav>
       <div
         className={`fixed top-0 left-0 z-40 w-64 h-screen pt-6 transition-transform ${
           openSidebar ? "translate-x-0" : "-translate-x-full"
-        } bg-white border-r border-gray-200 lg:translate-x-0`}
+        } bg-white border-r border-gray-light lg:translate-x-0`}
       >
         <div className="overflow-y-auto py-5 px-3 h-full bg-white">
-          <ul className="space-y-2 border-b pb-4 border-gray-200">
+          <ul className="space-y-2">
             {menuItems.map((item) => (
               <li key={item.id} onClick={toggleMenu}>
                 <Link
                   to={item.path}
-                  className="flex items-center p-2 text-base font-medium text-[#1C2020] rounded-lg transition duration-75 hover:bg-[#DFF8F1] cursor-pointer hover:text-[#1B4339]"
+                  className="flex items-center p-2  text-[#606060] rounded-lg transition duration-75 hover:bg-teal-light cursor-pointer hover:text-teal focus:text-gray-dark focus:bg-teal-light"
                 >
                   <span className="text-2xl">{item.icon}</span>
                   <h4 className="ml-3">{item.label}</h4>
@@ -47,37 +85,30 @@ const SideBar = () => {
             ))}
           </ul>
         </div>
-        <div className="absolute bottom-0 left-0 p-4">
+        <div className="absolute bottom-0 left-0 p-4 border-t border-gray-light w-full">
           {dropdownVisible && (
-            <div
-              className="my-4 w-56 text-base rounded divide-y divide-gray-100 shadow"
-              id="dropdown"
-            >
-              <ul className="py-1 text-gray-700" aria-labelledby="dropdown">
-                <li>
-                  <a
-                    href="#"
-                    className="block py-2 px-4 text-sm hover:bg-gray-100"
+            <div className="my-4 w-56 rounded shadow">
+              <ul className="py-1 text-[#606060]">
+                {dropdownMenu.map((item) => (
+                  <li
+                    key={item.id}
+                    className="flex items-center gap-2 py-2 px-4"
+                    onClick={toggleMenu}
                   >
-                    Settings
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#"
-                    className="block py-2 px-4 text-sm hover:bg-gray-100"
-                  >
-                    Log Out
-                  </a>
-                </li>
+                    <span>{item.icon}</span>
+                    <Link to={item.path} className="text-sm">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           )}
           <div
-            className="flex items-center gap-8 hover:cursor-pointer"
+            className="flex items-center justify-between hover:cursor-pointer"
             onClick={toggleDropdown}
           >
-            <span className="bg-[#DFF8F1] text-[#1B4339] rounded-full p-2.5">
+            <span className="bg-teal-light text-teal-dark rounded-full p-2">
               BA
             </span>
             <span>

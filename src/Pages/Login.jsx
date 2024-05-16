@@ -11,7 +11,7 @@ const Login = () => {
           <span className="text-4xl rounded-full">
             <TbBriefcaseFilled />
           </span>
-          <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-6 text-center text-2xl font-bold leading-9 tracking-tight text-gray-dark">
             Sign in to your account
           </h2>
         </div>
@@ -19,7 +19,7 @@ const Login = () => {
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
           <form className="space-y-6">
             <div>
-              <label htmlFor="email" className="block leading-6 text-gray-900">
+              <label htmlFor="email" className="block leading-6 text-gray-dark">
                 Email address
               </label>
               <div className="mt-2">
@@ -29,7 +29,7 @@ const Login = () => {
                   type="email"
                   autoComplete="email"
                   required
-                  className="block w-full rounded-md outline-none ring-1 py-1.5 px-2 text-gray-900 shadow-sm focus:ring-[1px] focus:ring-teal-400"
+                  className="block w-full rounded-md outline-none ring-1 ring-gray-light  py-1.5 px-2 text-gray-dark shadow-sm focus:ring-[1px] focus:ring-teal-light"
                 />
               </div>
             </div>
@@ -38,7 +38,7 @@ const Login = () => {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-gray-dark"
                 >
                   Password
                 </label>
@@ -58,7 +58,7 @@ const Login = () => {
                   type="password"
                   autoComplete="current-password"
                   required
-                  className="block w-full rounded-md outline-none ring-1 py-1.5 px-2 text-gray-900 shadow-sm focus:ring-[1px] focus:ring-teal-400"
+                  className="block w-full rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-dark shadow-sm focus:ring-[1px] focus:ring-teal"
                 />
               </div>
             </div>
@@ -66,7 +66,7 @@ const Login = () => {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-teal-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-700"
+                className="flex w-full justify-center rounded-md bg-teal px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-teal-dark"
               >
                 <Link to="/dashboard">Login</Link>
               </button>
@@ -77,7 +77,7 @@ const Login = () => {
             Don't have an account?{" "}
             <Link
               to="/signup"
-              className="font-semibold leading-6 text-teal-600 hover:underline"
+              className="font-semibold leading-6 text-teal hover:underline"
             >
               Register
             </Link>

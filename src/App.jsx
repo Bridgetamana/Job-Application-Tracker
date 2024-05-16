@@ -8,7 +8,7 @@ import Dashboard from "./Pages/Dashboard";
 import Applications from "./Pages/Applications";
 import Jobsearch from "./Pages/Jobsearch";
 import Profile from "./Pages/Profile";
-
+import Settings from "./Pages/Settings";
 
 function App() {
   return (
@@ -21,9 +21,11 @@ function App() {
         </Route>
         <Route path="/dashboard" element={<DashboardLayout />}>
           <Route index element={<Dashboard />} />
+          <Route path="dashboard" element={<Dashboard />} />
           <Route path="applications" element={<Applications />} />
           <Route path="job" element={<Jobsearch />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="settings" element={<Settings />} />
         </Route>
       </Routes>
     </Router>
