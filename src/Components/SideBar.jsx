@@ -92,7 +92,7 @@ const SideBar = () => {
                 {dropdownMenu.map((item) => (
                   <li
                     key={item.id}
-                    className="flex items-center gap-2 py-2 px-4"
+                    className="flex items-center gap-2 py-2 px-4 hover:bg-teal-light cursor-pointer hover:text-teal focus:text-gray-dark focus:bg-teal-light"
                     onClick={toggleMenu}
                   >
                     <span>{item.icon}</span>
