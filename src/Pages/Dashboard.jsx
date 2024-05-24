@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from "react-router-dom"
 import { LuUserCircle2, LuDownload } from "react-icons/lu";
 import {
   FaRegFileAlt,
@@ -11,14 +12,14 @@ const Dashboard = () => {
   return (
     <div>
       <div className="rounded-lg mb-10 flex flex-wrap justify-between items-center">
-        <h1 className="text-3xl font-bold text-teal">Welcome back Bridget</h1>
-        <div className="rounded-lg p-4 bg-white drop-shadow-sm flex gap-14 items-center mt-4 ">
+        <h1 className="text-3xl font-bold text-teal">Welcome back Bridget,</h1>
+        <div className="rounded-lg p-4 bg-white drop-shadow-sm flex gap-8 items-center mt-4 ">
           <span className="flex flex-wrap gap-3 md:text-xl">
             <p>Total Applications:</p>
             <p className="text-[#9CDACA]">0</p>
           </span>
           <button className="bg-teal text-white rounded-md py-2 px-2.5 flex justify-center items-center gap-3 text-sm">
-            <a href="#">Add new Job</a>
+            <a to="#">Add new Job</a>
             <span className="text-sm">
               <FaPlus />
             </span>
@@ -35,8 +36,8 @@ const Dashboard = () => {
 
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
             <div className="rounded-lg drop-shadow-sm">
-              <a
-                href="#"
+              <Link
+                to="/profile"
                 className="block max-w-sm p-6 bg-white rounded-lg shadow-md"
               >
                 <span className="flex w-10 h-10 rounded-full bg-teal-light items-center justify-center text-teal-dark text-xl">
@@ -45,10 +46,8 @@ const Dashboard = () => {
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-dark">
                   Complete your profile
                 </h5>
-                <p className="font-normal text-gray">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                </p>
-              </a>
+                <p className="text-gray">Add more details</p>
+              </Link>
             </div>
             <div className="rounded-lg drop-shadow-sm">
               <a
@@ -59,9 +58,25 @@ const Dashboard = () => {
                   <LuUserCircle2 />
                 </span>
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-dark">
-                  Complete your profile
+                  Search for Jobs
                 </h5>
-                <p className="font-normal text-gray">
+                <p className="text-gray">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                </p>
+              </a>
+            </div>{" "}
+            <div className="rounded-lg drop-shadow-sm">
+              <a
+                href="#"
+                className="block max-w-sm p-6 bg-white rounded-lg shadow-md hover:bg-gray-100"
+              >
+                <span className="flex w-10 h-10 rounded-full bg-teal-light items-center justify-center text-teal-dark text-xl">
+                  <LuUserCircle2 />
+                </span>
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-dark">
+                  Search for Jobs
+                </h5>
+                <p className="text-gray">
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                 </p>
               </a>
@@ -77,23 +92,7 @@ const Dashboard = () => {
                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-dark">
                   Complete your profile
                 </h5>
-                <p className="font-normal text-gray-700">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                </p>
-              </a>
-            </div>{" "}
-            <div className="rounded-lg drop-shadow-sm">
-              <a
-                href="#"
-                className="block max-w-sm p-6 bg-white rounded-lg shadow-md hover:bg-gray-100"
-              >
-                <span className="flex w-10 h-10 rounded-full bg-teal-light items-center justify-center text-teal-dark text-xl">
-                  <LuUserCircle2 />
-                </span>
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-dark">
-                  Complete your profile
-                </h5>
-                <p className="font-normal text-gray-700">
+                <p className="text-gray">
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit.
                 </p>
               </a>
@@ -101,9 +100,9 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className=" rounded-lg border-gray-300 mb-4">
+      <div className=" rounded-lg border-gray mb-4">
         <h2 className="text-2xl text-gray-dark">Resources</h2>
-        <div className="mt-4 flex flex-wrap gap-4">
+        <div className="mt-4 flex flex-wrap gap-10">
           <div>
             <span>
               <h3 className="text-xl">Resume and cover letters</h3>

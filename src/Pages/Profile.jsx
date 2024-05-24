@@ -64,10 +64,12 @@ const Profile = () => {
               />
             </div>
             {editingName ? (
-              <MdOutlineSaveAlt
-                className="cursor-pointer text-xl"
+              <button
+                className="cursor-pointer text-sm font-medium py-1 px-4 border border-teal text-teal-dark hover:bg-teal-dark hover:text-white rounded-md"
                 onClick={() => handleEditToggle("name")}
-              />
+              >
+                Save
+              </button>
             ) : (
               <MdOutlineEdit
                 className="cursor-pointer text-xl"
@@ -83,10 +85,12 @@ const Profile = () => {
                 Personal Information
               </h2>
               {editingPersonal ? (
-                <MdOutlineSaveAlt
-                  className="cursor-pointer text-xl"
+                <button
+                  className="cursor-pointer text-sm font-medium py-1 px-4 border border-teal text-teal-dark hover:bg-teal-dark hover:text-white rounded-md"
                   onClick={() => handleEditToggle("personal")}
-                />
+                >
+                  Save
+                </button>
               ) : (
                 <MdOutlineEdit
                   className="cursor-pointer text-xl"
@@ -94,7 +98,7 @@ const Profile = () => {
                 />
               )}
             </span>
-            <div className="space-y-2">
+            <div className="space-y-2 mt-4">
               <div className="flex gap-3 items-center">
                 <label htmlFor="email">
                   <MdMailOutline />
@@ -112,7 +116,7 @@ const Profile = () => {
                   }`}
                 />
               </div>
-              <div className="flex gap-3 items-center">
+              <div className="flex gap-3 items-center ">
                 <label htmlFor="tel">
                   <MdOutlineCall />
                 </label>
@@ -155,10 +159,12 @@ const Profile = () => {
                 Experience
               </h2>
               {editingExperience ? (
-                <MdOutlineSaveAlt
-                  className="cursor-pointer text-xl"
+                <button
+                  className="cursor-pointer text-sm font-medium py-1 px-4 border border-teal text-teal-dark hover:bg-teal-dark hover:text-white rounded-md"
                   onClick={() => handleEditToggle("experience")}
-                />
+                >
+                  Save
+                </button>
               ) : (
                 <MdOutlineEdit
                   className="cursor-pointer text-xl"
@@ -166,7 +172,7 @@ const Profile = () => {
                 />
               )}
             </span>
-            <div>
+            <div className="mt-4">
               <label htmlFor="experience"></label>
               <textarea
                 id="experience"
@@ -188,10 +194,12 @@ const Profile = () => {
                 Job Preferences
               </h2>
               {editingJobPreferences ? (
-                <MdOutlineSaveAlt
-                  className="cursor-pointer text-xl"
+                <button
+                  className="cursor-pointer text-sm font-medium py-1 px-4 border border-teal text-teal-dark hover:bg-teal-dark hover:text-white rounded-md"
                   onClick={() => handleEditToggle("jobPreferences")}
-                />
+                >
+                  Save
+                </button>
               ) : (
                 <MdOutlineEdit
                   className="cursor-pointer text-xl"
@@ -200,7 +208,7 @@ const Profile = () => {
               )}
             </span>
 
-            <div>
+            <div className="mt-4">
               <label htmlFor="jobtype">Job Type: </label>
               <input
                 id="jobtype"
@@ -223,10 +231,12 @@ const Profile = () => {
                 Resume
               </h2>
               {editingResume ? (
-                <MdOutlineSaveAlt
-                  className="cursor-pointer text-xl"
+                <button
+                  className="cursor-pointer text-sm font-medium py-1 px-4 border border-teal text-teal-dark hover:bg-teal-dark hover:text-white rounded-md"
                   onClick={() => handleEditToggle("resume")}
-                />
+                >
+                  Save
+                </button>
               ) : (
                 <MdOutlineEdit
                   className="cursor-pointer text-xl"
@@ -235,7 +245,7 @@ const Profile = () => {
               )}
             </span>
 
-            <div>
+            <div className="mt-4">
               <label className="sr-only" htmlFor="resumeUpload">
                 Resume
               </label>
@@ -253,10 +263,12 @@ const Profile = () => {
                 Skills
               </h2>
               {editingSkills ? (
-                <MdOutlineSaveAlt
-                  className="cursor-pointer text-xl"
+                <button
+                  className="cursor-pointer text-sm font-medium py-1 px-4 border border-teal text-teal-dark hover:bg-teal-dark hover:text-white rounded-md"
                   onClick={() => handleEditToggle("skills")}
-                />
+                >
+                  Save
+                </button>
               ) : (
                 <MdOutlineEdit
                   className="cursor-pointer text-xl"
@@ -265,7 +277,7 @@ const Profile = () => {
               )}
             </span>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-3 mt-4">
               {skills.map((skill, index) => (
                 <input
                   key={index}
@@ -277,10 +289,8 @@ const Profile = () => {
                     setSkills(newSkills);
                   }}
                   disabled={!editingSkills}
-                  className={` bg-teal text-white rounded-full py-2 px-2.5 flex justify-center items-center text-sm  ${
-                    editingSkills
-                      ? " outline-none"
-                      : ""
+                  className={` bg-teal text-white rounded-full py-2 px-2.5 w-20 text-wrap flex justify-center items-center text-sm  ${
+                    editingSkills ? " outline-none" : ""
                   }`}
                 />
               ))}
