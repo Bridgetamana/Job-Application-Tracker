@@ -79,6 +79,7 @@ const Profile = () => {
           </div>
         </div>
         <div className="grid md:grid-cols-2 gap-x-10 gap-y-8 text-gray-dark/80">
+          {/* PERSONAL INFORMATION */}
           <div className="bg-white rounded-md p-4">
             <span className="flex justify-between">
               <h2 className="text-xl font-semibold mb-3 text-gray-dark">
@@ -153,6 +154,7 @@ const Profile = () => {
             </div>
           </div>
 
+          {/* EXPERIENCE */}
           <div className="bg-white rounded-md p-4">
             <span className="flex justify-between">
               <h2 className="text-xl font-semibold mb-3 text-gray-dark">
@@ -188,6 +190,7 @@ const Profile = () => {
             </div>
           </div>
 
+          {/* JOB PREFERENCE */}
           <div className="bg-white rounded-md p-4">
             <span className="flex justify-between">
               <h2 className="text-xl font-semibold mb-3 text-gray-dark">
@@ -225,6 +228,7 @@ const Profile = () => {
             </div>
           </div>
 
+          {/* RESUME */}
           <div className="bg-white rounded-md p-4">
             <span className="flex justify-between">
               <h2 className="text-xl font-semibold mb-3 text-gray-dark">
@@ -257,6 +261,8 @@ const Profile = () => {
               />
             </div>
           </div>
+
+          {/* SKILLS */}
           <div className="bg-white rounded-md p-4">
             <span className="flex justify-between">
               <h2 className="text-xl font-semibold mb-3 text-gray-dark">

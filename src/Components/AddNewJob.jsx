@@ -1,94 +1,86 @@
 import React, { useState } from "react";
 
-const AddNewJobs = () => {
-  const [applications, setApplications] = useState([]);
-  const [newApplication, setNewApplication] = useState({
-    company: "",
-    position: "",
-    status: "Applied",
-    date: "",
-    notes: "",
-  });
+const AddNewJobs = ({ setJobModal, onAddJob }) => {
+  const [jobTitle, setJobTitle] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [applicationDate, setApplicationDate] = useState("");
+  const [status, setStatus] = useState("applied");
 
-  const handleChange = (e) => {
-    setNewApplication({
-      ...newApplication,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleAddApplication = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setApplications([
-      ...applications,
-      { ...newApplication, id: applications.length + 1 },
-    ]);
-    setNewApplication({
-      company: "",
-      position: "",
-      status: "Applied",
-      date: "",
-      notes: "",
-    });
+    const newJob = {
+      jobTitle,
+      companyName,
+      applicationDate,
+      status,
+    };
+    onAddJob(newJob);
+    setJobTitle("");
+    setCompanyName("");
+    setApplicationDate("");
+    setStatus("applied");
+    setJobModal(false);
   };
 
   return (
-    <div className="job-applications-page">
-      <h1>Job Applications</h1>
-      <form onSubmit={handleAddApplication} className="application-form">
-        <input
-          type="text"
-          name="company"
-          value={newApplication.company}
-          onChange={handleChange}
-          placeholder="Company Name"
-          required
-        />
-        <input
-          type="text"
-          name="position"
-          value={newApplication.position}
-          onChange={handleChange}
-          placeholder="Job Position"
-          required
-        />
-        <input
-          type="date"
-          name="date"
-          value={newApplication.date}
-          onChange={handleChange}
-          required
-        />
-        <select
-          name="status"
-          value={newApplication.status}
-          onChange={handleChange}
-        >
-          <option value="Applied">Applied</option>
-          <option value="Interviewing">Interviewing</option>
-          <option value="Offered">Offered</option>
-          <option value="Rejected">Rejected</option>
-        </select>
-        <textarea
-          name="notes"
-          value={newApplication.notes}
-          onChange={handleChange}
-          placeholder="Notes"
-        />
-        <button type="submit">Add Application</button>
-      </form>
-      <ul className="applications-list">
-        {applications.map((application) => (
-          <li key={application.id} className="application-item">
-            <h3>
-              {application.position} at {application.company}
-            </h3>
-            <p>Status: {application.status}</p>
-            <p>Date Applied: {application.date}</p>
-            <p>Notes: {application.notes}</p>
-          </li>
-        ))}
-      </ul>
+    <div className="fixed inset-0 bg-[#000]/50 z-40">
+      <div className="p-6 w-[50%] shadow-md fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-[#f3f3f3] rounded-lg">
+        <div>
+          <h2 className="text-2xl font-semibold mb-4">Add New Job</h2>
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <input
+              type="text"
+              placeholder="Job Title"
+              value={jobTitle}
+              onChange={(e) => setJobTitle(e.target.value)}
+              className="border border-gray-light rounded-md p-2 outline-none focus:ring-[1px] focus:ring-teal"
+              required
+            />
+            <input
+              type="text"
+              placeholder="Company Name"
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+              className="border border-gray-light rounded-md p-2 outline-none focus:ring-[1px] focus:ring-teal"
+              required
+            />
+            <input
+              type="date"
+              placeholder="Application Date"
+              value={applicationDate}
+              onChange={(e) => setApplicationDate(e.target.value)}
+              className="border border-gray-light rounded-md p-2 outline-none focus:ring-[1px] focus:ring-teal"
+              required
+            />
+            <select
+              value={status}
+              onChange={(e) => setStatus(e.target.value)}
+              className="border border-gray-light rounded-md p-2 outline-none focus:ring-[1px] focus:ring-teal "
+              required
+            >
+              <option value="applied">Applied</option>
+              <option value="interview">Interview</option>
+              <option value="offered">Offered</option>
+              <option value="rejected">Rejected</option>
+            </select>
+            <div className="flex justify-between">
+              <button
+                type="submit"
+                className="bg-teal text-white rounded-md py-2 px-4"
+              >
+                Save
+              </button>
+              <button
+                type="button"
+                onClick={() => setJobModal(false)}
+                className="bg-gray-light text-gray-dark rounded-md py-2 px-4"
+              >
+                Cancel
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

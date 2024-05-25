@@ -1,14 +1,21 @@
-import React from "react";
-import {Link} from "react-router-dom"
-import { LuUserCircle2, LuDownload } from "react-icons/lu";
+import React, {useState} from "react";
+import { Link } from "react-router-dom";
+import { LuUserCircle2, LuDownload, LuSearch } from "react-icons/lu";
 import {
   FaRegFileAlt,
   FaRegQuestionCircle,
   FaRegLightbulb,
   FaPlus,
 } from "react-icons/fa";
+import { BsBriefcase } from "react-icons/bs";
+import DashboardCard from "../Components/DashboardCard";
+import AddNewJobs from "../Components/AddNewJob";
 
 const Dashboard = () => {
+  const [showJobModal, setShowJobModal] = useState(false);
+  const handleOpenJobModal = () => {
+    setShowJobModal(true);
+  };
   return (
     <div>
       <div className="rounded-lg mb-10 flex flex-wrap justify-between items-center">
@@ -18,13 +25,17 @@ const Dashboard = () => {
             <p>Total Applications:</p>
             <p className="text-[#9CDACA]">0</p>
           </span>
-          <button className="bg-teal text-white rounded-md py-2 px-2.5 flex justify-center items-center gap-3 text-sm">
+          <button
+            className="bg-teal text-white rounded-md py-2 px-2.5 flex justify-center items-center gap-3 text-sm"
+            onClick={handleOpenJobModal}
+          >
             <a to="#">Add new Job</a>
             <span className="text-sm">
               <FaPlus />
             </span>
           </button>
         </div>
+        {showJobModal && <AddNewJobs setJobModal={setShowJobModal} />}
       </div>
       <div className="rounded-lg mb-4">
         <div>
@@ -35,68 +46,30 @@ const Dashboard = () => {
           </div>
 
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-            <div className="rounded-lg drop-shadow-sm">
-              <Link
-                to="/profile"
-                className="block max-w-sm p-6 bg-white rounded-lg shadow-md"
-              >
-                <span className="flex w-10 h-10 rounded-full bg-teal-light items-center justify-center text-teal-dark text-xl">
-                  <LuUserCircle2 />
-                </span>
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-dark">
-                  Complete your profile
-                </h5>
-                <p className="text-gray">Add more details</p>
-              </Link>
-            </div>
-            <div className="rounded-lg drop-shadow-sm">
-              <a
-                href="#"
-                className="block max-w-sm p-6 bg-white rounded-lg shadow-md hover:bg-gray-100"
-              >
-                <span className="flex w-10 h-10 rounded-full bg-teal-light items-center justify-center text-teal-dark text-xl">
-                  <LuUserCircle2 />
-                </span>
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-dark">
-                  Search for Jobs
-                </h5>
-                <p className="text-gray">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                </p>
-              </a>
-            </div>{" "}
-            <div className="rounded-lg drop-shadow-sm">
-              <a
-                href="#"
-                className="block max-w-sm p-6 bg-white rounded-lg shadow-md hover:bg-gray-100"
-              >
-                <span className="flex w-10 h-10 rounded-full bg-teal-light items-center justify-center text-teal-dark text-xl">
-                  <LuUserCircle2 />
-                </span>
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-dark">
-                  Search for Jobs
-                </h5>
-                <p className="text-gray">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                </p>
-              </a>
-            </div>{" "}
-            <div className="rounded-lg drop-shadow-sm">
-              <a
-                href="#"
-                className="block max-w-sm p-6 bg-white rounded-lg shadow-md hover:bg-gray-100"
-              >
-                <span className="flex w-10 h-10 rounded-full bg-teal-light items-center justify-center text-teal-dark text-xl">
-                  <LuUserCircle2 />
-                </span>
-                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-dark">
-                  Complete your profile
-                </h5>
-                <p className="text-gray">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                </p>
-              </a>
-            </div>
+            <DashboardCard
+              to="/dashboard/profile"
+              icon={LuUserCircle2}
+              title="Complete your profile"
+              description="Add more details"
+            />{" "}
+            <DashboardCard
+              to="/dashboard/job"
+              icon={LuSearch}
+              title="Search for Jobs"
+              description="Find jobs that match your skills"
+            />
+            <DashboardCard
+              to="/dashboard/applications"
+              icon={BsBriefcase}
+              title="Update application status"
+              description="Keep your job applications up to date"
+            />
+            <DashboardCard
+              to="/dashboard"
+              icon={FaRegLightbulb}
+              title="Prepare for Interview"
+              description="Browse our interview resources to help you prepare"
+            />{" "}
           </div>
         </div>
       </div>
@@ -212,10 +185,10 @@ const Dashboard = () => {
         </div>
       </div>
       <div className="rounded-lg pt-12 mb-4 flex justify-center">
-        Made with <span> 💙</span> by{" "}
+        Made with <span className="mx-1"> 💙</span> by{" "}
         <a
           href="https://github.com/Bridgetamana"
-          className="underline text-teal"
+          className="underline text-teal mx-1 hover:no-underline"
         >
           Bridget Amana
         </a>
