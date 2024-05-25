@@ -18,7 +18,7 @@ const Dashboard = () => {
   };
   return (
     <div>
-      <div className="rounded-lg mb-10 flex flex-wrap justify-between items-center">
+      <div className="mb-10 flex flex-wrap justify-between items-center">
         <h1 className="text-3xl font-bold text-teal">Welcome back Bridget,</h1>
         <div className="rounded-lg p-4 bg-white drop-shadow-sm flex gap-8 items-center mt-4 ">
           <span className="flex flex-wrap gap-3 md:text-xl">
