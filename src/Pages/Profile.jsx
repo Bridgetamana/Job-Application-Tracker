@@ -4,7 +4,8 @@ import {
   MdOutlineCall,
   MdOutlineLocationOn,
   MdOutlineEdit,
-  MdOutlineSaveAlt,
+  MdDelete,
+  MdAdd,
 } from "react-icons/md";
 
 const Profile = () => {
@@ -15,13 +16,14 @@ const Profile = () => {
   const [editingResume, setEditingResume] = useState(false);
   const [editingSkills, setEditingSkills] = useState(false);
 
-  const [name, setName] = useState("John Doe");
+  const [name, setName] = useState("John the Doe");
   const [email, setEmail] = useState("johnthedoe123@example.com");
   const [phone, setPhone] = useState("+2348056789019");
   const [location, setLocation] = useState("Mars");
   const [experience, setExperience] = useState("Add your experience");
   const [jobType, setJobType] = useState("Contract");
   const [skills, setSkills] = useState(["Javascript", "HTML"]);
+  const [newSkill, setNewSkill] = useState("");
 
   const handleEditToggle = (section) => {
     if (section === "personal") {
@@ -39,22 +41,46 @@ const Profile = () => {
     }
   };
 
+  const nameInitial = (name) => {
+    const nameSplit = name.split(" ");
+    if (nameSplit.length === 1) {
+      return nameSplit[0].charAt(0).toUpperCase();
+    } else {
+      return (
+        nameSplit[0].charAt(0).toUpperCase() +
+        nameSplit[nameSplit.length - 1].charAt(0).toUpperCase()
+      );
+    }
+  };
+
+  const handleAddSkill = () => {
+    if (newSkill.trim()) {
+      setSkills([...skills, newSkill]);
+      setNewSkill("");
+    }
+  };
+
+  const handleDeleteSkill = (index) => {
+    const newSkills = skills.filter((_, i) => i !== index);
+    setSkills(newSkills);
+  };
+
   return (
     <div>
       <div>
         <h2 className="text-teal-dark text-3xl font-semibold mb-6">Profile</h2>
         <div className="flex flex-col justify-center items-center mb-6">
           <div className="inline-flex items-center justify-center w-20 h-20 overflow-hidden bg-teal-dark text-white font-bold rounded-full text-2xl">
-            <h1>{name.charAt(0)}</h1>
+            <h1>{nameInitial(name)}</h1>
           </div>
           <div className="flex gap-5 justify-center items-center mt-4">
             <div>
               <label htmlFor="name"></label>
               <input
                 id="name"
-                type="name"
+                type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onInput={(e) => setName(e.target.value)}
                 disabled={!editingName}
                 className={`text-xl font-bold bg-[#F6F6F6] ${
                   editingName
@@ -283,23 +309,47 @@ const Profile = () => {
               )}
             </span>
 
-            <div className="flex flex-wrap gap-3 mt-4">
+            <div className="flex flex-wrap gap-3 mt-4 items-center">
               {skills.map((skill, index) => (
-                <input
-                  key={index}
-                  type="text"
-                  value={skill}
-                  onChange={(e) => {
-                    const newSkills = [...skills];
-                    newSkills[index] = e.target.value;
-                    setSkills(newSkills);
-                  }}
-                  disabled={!editingSkills}
-                  className={` bg-teal text-white rounded-full py-2 px-2.5 w-20 text-wrap flex justify-center items-center text-sm  ${
-                    editingSkills ? " outline-none" : ""
-                  }`}
-                />
+                <div key={index} className="flex items-center">
+                  <input
+                    type="text"
+                    value={skill}
+                    onChange={(e) => {
+                      const newSkills = [...skills];
+                      newSkills[index] = e.target.value;
+                      setSkills(newSkills);
+                    }}
+                    disabled={!editingSkills}
+                    className={`bg-teal text-white rounded-full py-2 px-2.5 w-20 text-wrap flex justify-center items-center text-sm ${
+                      editingSkills ? "outline-none" : ""
+                    }`}
+                  />
+                  {editingSkills && (
+                    <p
+                      className="cursor-pointer text-error font-medium ml-2"
+                      onClick={() => handleDeleteSkill(index)}
+                    >
+                      X
+                    </p>
+                  )}
+                </div>
               ))}
+              {editingSkills && (
+                <div className="flex items-center">
+                  <input
+                    type="text"
+                    value={newSkill}
+                    onChange={(e) => setNewSkill(e.target.value)}
+                    placeholder="New skill"
+                    className="bg-white border border-gray-light rounded-full py-2 px-2.5 w-28 text-sm outline-none"
+                  />
+                  <MdAdd
+                    className="cursor-pointer text-teal ml-2"
+                    onClick={handleAddSkill}
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -14,6 +14,7 @@ export default {
       'gray-light': '#C8CACA',
       'white': '#ffffff',
       'red': '#651817',
+      'error': '#c22a28',
       'red-light': '#FFC9C2',
       'orange': '#48391E',
       'orange-light': '#FFE5AD',

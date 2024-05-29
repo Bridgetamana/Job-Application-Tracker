@@ -24,7 +24,7 @@ const AddNewJobs = ({ setJobModal, onAddJob }) => {
 
   return (
     <div className="fixed inset-0 bg-[#000]/50 z-40">
-      <div className="p-6 w-[50%] shadow-md fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-[#f3f3f3] rounded-lg">
+      <div className="p-6 w-[70%] lg:w-[50%] shadow-md fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-[#f3f3f3] rounded-lg">
         <div>
           <h2 className="text-2xl font-semibold mb-4">Add New Job</h2>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
