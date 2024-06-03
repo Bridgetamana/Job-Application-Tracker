@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import { Link } from "react-router-dom";
 import { LuUserCircle2, LuDownload, LuSearch } from "react-icons/lu";
 import {
@@ -9,13 +9,8 @@ import {
 } from "react-icons/fa";
 import { BsBriefcase } from "react-icons/bs";
 import DashboardCard from "../Components/DashboardCard";
-import AddNewJobs from "../Components/AddNewJob";
 
 const Dashboard = () => {
-  const [showJobModal, setShowJobModal] = useState(false);
-  const handleOpenJobModal = () => {
-    setShowJobModal(true);
-  };
   return (
     <div>
       <div className="mb-10 flex flex-wrap justify-between items-center">
@@ -25,17 +20,13 @@ const Dashboard = () => {
             <p>Total Applications:</p>
             <p className="text-[#9CDACA]">0</p>
           </span>
-          <button
-            className="bg-teal text-white rounded-md py-2 px-2.5 flex justify-center items-center gap-3 text-sm"
-            onClick={handleOpenJobModal}
-          >
-            <a to="#">Add new Job</a>
+          <button className="bg-teal text-white rounded-md py-2 px-2.5 flex justify-center items-center gap-3 text-sm">
+            <Link to="/dashboard/applications">Add new Job</Link>
             <span className="text-sm">
               <FaPlus />
             </span>
           </button>
         </div>
-        {showJobModal && <AddNewJobs setJobModal={setShowJobModal} />}
       </div>
       <div className="rounded-lg mb-4">
         <div>
@@ -73,7 +64,7 @@ const Dashboard = () => {
           </div>
         </div>
       </div>
-      <div className=" rounded-lg border-gray mb-4">
+      <div className="rounded-lg border-gray mb-4">
         <h2 className="text-2xl text-gray-dark">Resources</h2>
         <div className="mt-4 flex flex-wrap gap-10">
           <div>
@@ -96,7 +87,8 @@ const Dashboard = () => {
                     </p>
                     <button>
                       <a
-                        href="#"
+                        href="https://www.canva.com/resumes/templates/"
+                        target="_blank"
                         className="text-sm flex  border border-teal rounded-md p-2 text-teal"
                       >
                         Download Templates
@@ -116,7 +108,8 @@ const Dashboard = () => {
                     <p className="text-sm font-medium">Resume Builder</p>
                     <button>
                       <a
-                        href="#"
+                        href="https://zety.com/resume-builder"
+                        target="_blank"
                         className="text-sm flex  border border-teal rounded-md p-2 text-teal"
                       >
                         Use Resume Builder
@@ -130,7 +123,7 @@ const Dashboard = () => {
 
           <div>
             <span>
-              <h3 className="text-xl"> Interview Preparation</h3>
+              <h3 className="text-xl">Interview Preparation</h3>
               <p className="text-[#7E7E7E]">
                 Prepare for your interviews with common questions, and tips.
               </p>
@@ -149,7 +142,8 @@ const Dashboard = () => {
                     </p>
                     <button>
                       <a
-                        href="#"
+                        href="https://www.thebalancecareers.com/job-interview-questions-and-answers-2061204"
+                        target="_blank"
                         className="text-sm flex  border border-teal rounded-md p-2 text-teal"
                       >
                         Review Questions
@@ -171,7 +165,8 @@ const Dashboard = () => {
                     </p>
                     <button>
                       <a
-                        href="#"
+                        href="https://www.indeed.com/career-advice/interviewing/job-interview-tips-how-to-make-a-great-impression"
+                        target="_blank"
                         className="text-sm flex  border border-teal rounded-md p-2 text-teal"
                       >
                         Get Interview Tips
