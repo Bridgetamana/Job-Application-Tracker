@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
 import AddNewJobs from "../Components/AddNewJob";
+import EditJobModal from "../Components/EditJobModal";
 
 const Applications = () => {
   // Filter dropdown options
@@ -10,12 +11,21 @@ const Applications = () => {
     { id: 0, label: "Status" },
     { id: 1, label: "Date" },
     { id: 2, label: "Company" },
-    { id: 3, label: "Role" },
+    { id: 3, label: "Title" },
   ];
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [showJobModal, setShowJobModal] = useState(false);
-  const [jobs, setJobs] = useState([]);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
+  const [jobs, setJobs] = useState([
+    {
+      jobTitle: "Accountant",
+      companyName: "You Bank",
+      applicationDate: "2024-06-05",
+      status: "applied",
+    },
+  ]);
 
   const toggleDropdown = () => {
     setDropdownVisible(!dropdownVisible);
@@ -26,8 +36,33 @@ const Applications = () => {
   };
 
   const handleAddJob = (newJob) => {
-    setJobs([...jobs, newJob]);
+    const updatedJobs = [...jobs, newJob];
+    setJobs(updatedJobs);
+    localStorage.setItem("jobs", JSON.stringify(updatedJobs));
   };
+
+  const handleEditJob = (updatedJob) => {
+    const updatedJobs = jobs.map((job) =>
+      job.id === updatedJob.id ? updatedJob : job
+    );
+    setJobs(updatedJobs);
+  };
+
+  const handleOpenEditModal = (job) => {
+    setSelectedJob(job);
+    setShowEditModal(true);
+  };
+  useEffect(() => {
+    const storedJobs = localStorage.getItem("jobs");
+    console.log(storedJobs);
+    if (storedJobs) {
+      setJobs(JSON.parse(storedJobs)); 
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("jobs", JSON.stringify(jobs));
+  }, [jobs]);
 
   const statusColors = {
     applied: {
@@ -68,6 +103,15 @@ const Applications = () => {
       {/* Job modal */}
       {showJobModal && (
         <AddNewJobs setJobModal={setShowJobModal} onAddJob={handleAddJob} />
+      )}
+
+      {/* Edit Job Modal */}
+      {showEditModal && (
+        <EditJobModal
+          job={selectedJob}
+          setEditModal={setShowEditModal}
+          onEditJob={handleEditJob}
+        />
       )}
 
       <div>
@@ -112,6 +156,7 @@ const Applications = () => {
               .map((job, index) => (
                 <div
                   key={index}
+                  onClick={() => handleOpenEditModal(job)}
                   className="rounded-lg drop-shadow-sm bg-white mt-6 p-4 cursor-pointer hover:drop-shadow"
                 >
                   <div className="flex justify-between items-center">
