@@ -5,11 +5,12 @@ const Settings = () => {
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isConfirmPasswordHidden, setConfirmPasswordHidden] = useState(true);
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-2 gap-y-10 gap-x-14 h-screen">
-      <div className="max-w-2xl">
-        <h2 className="text-teal-dark text-3xl font-semibold mb-6">
+    <section className=" h-screen">
+      <div className="max-w-2xl mb-12">
+        <h2 className="text-teal-dark text-3xl font-semibold">
           Change password
         </h2>
+        <p className="text-gray mb-6">Manage your account password</p>
         <form>
           {/* Current Password */}
           <div>
@@ -153,9 +154,10 @@ const Settings = () => {
       {/* DELETE USER ACCOUNT */}
 
       <div>
-        <h2 className="text-teal-dark text-3xl font-semibold mb-6">
-          Delete Account
+        <h2 className="text-teal-dark text-3xl font-semibold">
+          Delete Account:
         </h2>
+        <p className="text-gray mb-6">Permanently delete your account.</p>
         <button
           type="submit"
           className="border border-red text-red rounded-md py-2 px-2.5 flex justify-center items-center gap-3"

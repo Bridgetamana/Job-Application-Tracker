@@ -109,7 +109,7 @@ const Profile = () => {
           <div className="bg-white rounded-md p-4">
             <span className="flex justify-between">
               <h2 className="text-xl font-semibold mb-3 text-gray-dark">
-                Personal Information
+                Personal Details
               </h2>
               {editingPersonal ? (
                 <button
@@ -311,7 +311,7 @@ const Profile = () => {
 
             <div className="flex flex-wrap gap-3 mt-4 items-center">
               {skills.map((skill, index) => (
-                <div key={index} className="flex items-center">
+                <div key={index} className="flex items-center gap-3">
                   <input
                     type="text"
                     value={skill}
@@ -321,13 +321,13 @@ const Profile = () => {
                       setSkills(newSkills);
                     }}
                     disabled={!editingSkills}
-                    className={`bg-teal text-white rounded-full py-2 px-2.5 w-20 text-wrap flex justify-center items-center text-sm ${
+                    className={`bg-teal-light text-teal rounded-md py-2 px-2.5 text-sm ${
                       editingSkills ? "outline-none" : ""
                     }`}
                   />
                   {editingSkills && (
                     <p
-                      className="cursor-pointer text-error font-medium ml-2"
+                      className="cursor-pointer text-gray text-sm font-medium"
                       onClick={() => handleDeleteSkill(index)}
                     >
                       X
@@ -342,7 +342,7 @@ const Profile = () => {
                     value={newSkill}
                     onChange={(e) => setNewSkill(e.target.value)}
                     placeholder="New skill"
-                    className="bg-white border border-gray-light rounded-full py-2 px-2.5 w-28 text-sm outline-none"
+                    className="bg-white border border-gray-light rounded-md py-2 px-2.5 w-28 text-sm outline-none"
                   />
                   <MdAdd
                     className="cursor-pointer text-teal ml-2"

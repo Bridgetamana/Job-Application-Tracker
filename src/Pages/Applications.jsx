@@ -38,7 +38,6 @@ const Applications = () => {
   const handleAddJob = (newJob) => {
     const updatedJobs = [...jobs, newJob];
     setJobs(updatedJobs);
-    localStorage.setItem("jobs", JSON.stringify(updatedJobs));
   };
 
   const handleEditJob = (updatedJob) => {
@@ -56,14 +55,19 @@ const Applications = () => {
     const storedJobs = localStorage.getItem("jobs");
     console.log(storedJobs);
     if (storedJobs) {
-      setJobs(JSON.parse(storedJobs)); 
+      setJobs(JSON.parse(storedJobs));
     }
   }, []);
 
   useEffect(() => {
     localStorage.setItem("jobs", JSON.stringify(jobs));
   }, [jobs]);
-
+  
+  const handleDeleteJob = (jobToDelete) => {
+    const updatedJobs = jobs.filter((job) => job !== jobToDelete);
+    setJobs(updatedJobs);
+    localStorage.setItem("jobs", JSON.stringify(updatedJobs));
+  };
   const statusColors = {
     applied: {
       background: "bg-blue-light",
@@ -156,21 +160,29 @@ const Applications = () => {
               .map((job, index) => (
                 <div
                   key={index}
+                  className="rounded-lg overflow-hidden bg-white mt-6 cursor-pointer hover:shadow-lg"
                   onClick={() => handleOpenEditModal(job)}
-                  className="rounded-lg drop-shadow-sm bg-white mt-6 p-4 cursor-pointer hover:drop-shadow"
                 >
-                  <div className="flex justify-between items-center">
-                    <p className="text-teal">{job.jobTitle}</p>
-                    <span className="text-gray text-lg">
-                      <MdDelete />
-                    </span>
+                  <div className="p-4">
+                    <div className="flex justify-between items-center">
+                      <p className="text-teal text-lg font-semibold">
+                        {job.jobTitle}
+                      </p>
+                      <span
+                        className="text-gray text-lg cursor-pointer"
+                        onClick={() => handleDeleteJob(job)}
+                      >
+                        <MdDelete />
+                      </span>
+                    </div>
+                    <h3 className="text-xl text-gray-dark mt-2">
+                      {job.companyName}
+                    </h3>
+                    <p className="text-xs text-gray mt-2">
+                      {job.status} on{" "}
+                      {new Date(job.applicationDate).toLocaleDateString()}
+                    </p>
                   </div>
-                  <h3 className="text-2xl mb-6 text-gray-dark">
-                    {job.companyName}
-                  </h3>
-                  <p className="text-[10px] text-gray">
-                    {new Date(job.applicationDate).toDateString()}
-                  </p>
                 </div>
               ))}
           </div>
