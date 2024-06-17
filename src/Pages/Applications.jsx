@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { IoIosArrowDown } from "react-icons/io";
 import { MdDelete } from "react-icons/md";
@@ -6,7 +6,6 @@ import AddNewJobs from "../Components/AddNewJob";
 import EditJobModal from "../Components/EditJobModal";
 
 const Applications = () => {
-  // Filter dropdown options
   const dropdownMenu = [
     { id: 0, label: "Status" },
     { id: 1, label: "Date" },
@@ -15,6 +14,7 @@ const Applications = () => {
   ];
 
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [selectedFilter, setSelectedFilter] = useState("Filter");
   const [showJobModal, setShowJobModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
@@ -27,8 +27,26 @@ const Applications = () => {
     },
   ]);
 
+  const handleDocumentClick = (event) => {
+    if (!event.target.closest(".dropdown")) {
+      setDropdownVisible(false);
+      document.removeEventListener("click", handleDocumentClick);
+    }
+  };
+
   const toggleDropdown = () => {
+    if (!dropdownVisible) {
+      document.addEventListener("click", handleDocumentClick);
+    } else {
+      document.removeEventListener("click", handleDocumentClick);
+    }
     setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleSelectFilter = (label) => {
+    setSelectedFilter(label);
+    setDropdownVisible(false);
+    document.removeEventListener("click", handleDocumentClick);
   };
 
   const handleOpenJobModal = () => {
@@ -51,23 +69,13 @@ const Applications = () => {
     setSelectedJob(job);
     setShowEditModal(true);
   };
-  useEffect(() => {
-    const storedJobs = localStorage.getItem("jobs");
-    console.log(storedJobs);
-    if (storedJobs) {
-      setJobs(JSON.parse(storedJobs));
-    }
-  }, []);
 
-  useEffect(() => {
-    localStorage.setItem("jobs", JSON.stringify(jobs));
-  }, [jobs]);
-  
   const handleDeleteJob = (jobToDelete) => {
     const updatedJobs = jobs.filter((job) => job !== jobToDelete);
     setJobs(updatedJobs);
     localStorage.setItem("jobs", JSON.stringify(updatedJobs));
   };
+
   const statusColors = {
     applied: {
       background: "bg-blue-light",
@@ -104,12 +112,10 @@ const Applications = () => {
         </button>
       </span>
 
-      {/* Job modal */}
       {showJobModal && (
         <AddNewJobs setJobModal={setShowJobModal} onAddJob={handleAddJob} />
       )}
 
-      {/* Edit Job Modal */}
       {showEditModal && (
         <EditJobModal
           job={selectedJob}
@@ -118,25 +124,25 @@ const Applications = () => {
         />
       )}
 
-      <div>
+      <div className="relative">
         <div
-          className="flex items-center justify-between hover:cursor-pointer w-32 p-2 border border-gray-light rounded-lg"
+          className="flex items-center justify-between hover:cursor-pointer w-32 p-2 border border-gray-light rounded-lg dropdown"
           onClick={toggleDropdown}
         >
-          <p className="rounded-lg text-sm px-2 py-1.5">Filter</p>
+          <p className="rounded-lg text-sm px-2 py-1.5">{selectedFilter}</p>
           <span>
             <IoIosArrowDown />
           </span>
         </div>
 
-        {/* Filter Dropdown menu */}
         {dropdownVisible && (
           <div className="my-4 bg-white rounded shadow z-10 absolute">
             <ul className="py-2 px-3 text-[#606060]">
               {dropdownMenu.map((item) => (
                 <li
                   key={item.id}
-                  className="flex items-center gap-2 py-2 px-3 rounded-md hover:bg-teal-light cursor-pointer hover:text-teal focus:text-gray-dark focus:bg-teal-light"
+                  className="flex items-center gap-2 py-2 px-3 rounded-md hover:bg-[#F9F9FB] cursor-pointer hover:text-gray-dark focus:text-gray-dark focus:bg-teal-light"
+                  onClick={() => handleSelectFilter(item.label)}
                 >
                   <p>{item.label}</p>
                 </li>
