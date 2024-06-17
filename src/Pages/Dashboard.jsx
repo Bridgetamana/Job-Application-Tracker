@@ -14,9 +14,9 @@ const Dashboard = () => {
   return (
     <div>
       <div className="mb-10 flex flex-wrap justify-between items-center">
-        <h1 className="text-3xl font-bold text-teal">Welcome back Bridget,</h1>
+        <h1 className="text-[28px] font-bold text-teal">Welcome back Bridget,</h1>
         <div className="rounded-lg p-4 bg-white drop-shadow-sm flex gap-8 items-center mt-4 ">
-          <span className="flex flex-wrap gap-3 md:text-xl">
+          <span className="flex flex-wrap gap-3 md:text-lg">
             <p>Total Applications:</p>
             <p className="text-[#9CDACA]">0</p>
           </span>
@@ -30,10 +30,10 @@ const Dashboard = () => {
       </div>
       <div className="rounded-lg mb-4">
         <div>
-          <h2 className="text-2xl text-gray-dark">Getting Started</h2>
+          <h2 className="text-xl text-gray-dark">Getting Started</h2>
 
-          <div className="w-80 bg-gray-light rounded-full h-2 my-2">
-            <div className="bg-teal h-2 rounded-full w-[30%]"></div>
+          <div className="w-80 bg-gray-light rounded-full h-1.5 my-2">
+            <div className="bg-teal h-1.5 rounded-full w-[30%]"></div>
           </div>
 
           <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">

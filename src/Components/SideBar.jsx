@@ -66,7 +66,7 @@ const SideBar = () => {
         </div>
       </nav>
       <div
-        className={`fixed top-0 left-0 z-40 w-56 h-screen pt-8 transition-transform ${
+        className={`fixed top-0 left-0 z-40 w-56 h-screen pt-14 lg:pt-8 transition-transform ${
           openSidebar ? "translate-x-0" : "-translate-x-full"
         } bg-white border-r border-gray-light lg:translate-x-0`}
       >
@@ -85,14 +85,14 @@ const SideBar = () => {
             ))}
           </ul>
         </div>
-        <div className="absolute bottom-0 left-0 p-4 border-t border-gray-light w-full">
+        <div className="absolute bottom-0 py-4 px-6 left-0 p-4 border-t border-gray-light w-full">
           {dropdownVisible && (
-            <div className="my-4 w-56 rounded shadow-sm absolute bottom-14">
+            <div className="my-4 rounded shadow-sm absolute bottom-14 ">
               <ul className="py-3 text-[#606060]">
                 {dropdownMenu.map((item) => (
                   <li
                     key={item.id}
-                    className="flex items-center gap-2 p-3 hover:bg-teal-light cursor-pointer rounded-lg hover:text-teal focus:text-gray-dark focus:bg-teal-light text-lg"
+                    className="flex items-center gap-2 p-2 pr-20 hover:bg-teal-light cursor-pointer rounded-lg hover:text-teal focus:text-gray-dark focus:bg-teal-light text-lg"
                     onClick={toggleMenu}
                   >
                     <span>{item.icon}</span>

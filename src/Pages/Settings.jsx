@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import DeleteAccountModal from "../Components/DeleteAccountModal";
 
 const Settings = () => {
   const [isPasswordHidden, setPasswordHidden] = useState(true);
   const [isConfirmPasswordHidden, setConfirmPasswordHidden] = useState(true);
+  const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
+
+  const handleDeleteModal = () => {
+    setShowDeleteAccountModal(true);
+  }
   return (
     <section className=" h-screen">
       <div className="max-w-2xl mb-12">
@@ -161,10 +167,14 @@ const Settings = () => {
         <button
           type="submit"
           className="border border-red text-red rounded-md py-2 px-2.5 flex justify-center items-center gap-3"
+          onClick={handleDeleteModal}
         >
           Delete my Account
         </button>
       </div>
+      {showDeleteAccountModal && (
+        <DeleteAccountModal setDeleteAccountModal={setShowDeleteAccountModal} />
+      )}
     </section>
   );
 };
