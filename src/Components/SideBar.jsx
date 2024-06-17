@@ -66,19 +66,19 @@ const SideBar = () => {
         </div>
       </nav>
       <div
-        className={`fixed top-0 left-0 z-40 w-64 h-screen pt-10 lg:pt-8 transition-transform ${
+        className={`fixed top-0 left-0 z-40 w-56 h-screen pt-8 transition-transform ${
           openSidebar ? "translate-x-0" : "-translate-x-full"
         } bg-white border-r border-gray-light lg:translate-x-0`}
       >
-        <div className="overflow-y-auto py-5 px-3 h-full bg-white">
+        <div className="overflow-y-auto py-4 px-6 h-full bg-white">
           <ul className="space-y-2">
             {menuItems.map((item) => (
               <li key={item.id} onClick={toggleMenu}>
                 <Link
                   to={item.path}
-                  className="flex items-center p-3 text-[#606060] rounded-lg transition duration-75 hover:bg-teal-light cursor-pointer hover:text-teal focus:text-gray-dark focus:bg-teal-light text-lg"
+                  className="flex items-center p-2 text-[#606060] rounded-lg transition duration-75 hover:bg-teal-light cursor-pointer hover:text-teal focus:text-gray-dark focus:bg-teal-light text-lg"
                 >
-                  <span className="text-2xl">{item.icon}</span>
+                  <span className="text-xl">{item.icon}</span>
                   <h4 className="ml-3">{item.label}</h4>
                 </Link>
               </li>
