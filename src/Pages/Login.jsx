@@ -1,91 +1,62 @@
-import React from 'react'
-import { TbBriefcaseFilled } from "react-icons/tb";
 import { Link } from "react-router-dom";
-
+import Illustration from "../assets/img/Illustration-person.png";
 
 const Login = () => {
   return (
-    <div>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:max-w-sm flex flex-col justify-center items-center">
-          <span className="text-4xl rounded-full">
-            <TbBriefcaseFilled />
-          </span>
-          <h2 className="mt-6 text-center text-2xl font-bold text-gray-dark">
-            Sign in to your account
-          </h2>
-        </div>
-
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6">
+    <div className="h-screen lg:flex max-w-screen-lg mx-auto gap-16 w-full py-12 px-4">
+      <div className="lg:w-1/2 max-w-lg mx-auto">
+        <h2 className="mb-10 mt-6 text-4xl font-semibold">Welcome back!</h2>
+        <div>
+          <form className="space-y-5 ">
             <div>
-              <label htmlFor="email" className="block text-gray-dark">
-                Email address
+              <label htmlFor="name" className=" p-2">
+                Email
               </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  autoComplete="email"
-                  required
-                  className="block w-full rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-dark shadow-sm focus:ring-[1px] focus:ring-teal"
-                />
-              </div>
+              <input
+                type="text"
+                id="name"
+                placeholder="youremail@gmail.com"
+                required
+                autoComplete="email"
+                className="block w-full rounded-lg outline-none py-2 px-2.5 mt-2 text-gray-dark shadow-sm border  border-[#A3A3A3]"
+              />
             </div>
-
             <div>
-              <div className="flex items-center justify-between">
-                <label
-                  htmlFor="password"
-                  className="block text-gray-dark"
-                >
+              <span className="flex justify-between items-center">
+                <label htmlFor="name" className=" p-2">
                   Password
                 </label>
-                <div className="text-sm">
-                  <a
-                    href="#"
-                    className="font-semibold text-gray hover:text-teal "
-                  >
-                    Forgot password?
-                  </a>
-                </div>
-              </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  autoComplete="current-password"
-                  required
-                  className="block w-full rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-dark shadow-sm focus:ring-[1px] focus:ring-teal"
-                />
-              </div>
+                <a href="#" className="text-sm text-[#00842B]">
+                  Forgot password?
+                </a>
+              </span>
+              <input
+                type="text"
+                id="name"
+                placeholder="***********"
+                required
+                className="block w-full rounded-lg outline-none py-2 px-2.5 text-gray-dark shadow-sm border  border-[#A3A3A3]"
+              />
             </div>
-
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-teal px-3 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-teal-dark"
-              >
-                <Link to="/dashboard">Login</Link>
+            <div className="pt-4">
+              <button className="flex w-full justify-center rounded-lg bg-[#000] p-3 text-sm font-semibold text-white mb-2">
+                <Link to="/dashboard">Sign in</Link>
               </button>
+              <p className="text-sm text-[#5D6661]">
+                Don&apos;t have an account?{" "}
+                <Link to="/signup" className="underline hover:no-underline">
+                  create one
+                </Link>
+              </p>
             </div>
           </form>
-
-          <p className="mt-6 text-center text-sm text-gray-500">
-            Don't have an account?{" "}
-            <Link
-              to="/signup"
-              className="font-semibold text-teal hover:underline"
-            >
-              Register
-            </Link>
-          </p>
         </div>
+      </div>
+      <div className="flex-1 hidden lg:flex">
+        <img src={Illustration} alt="Person sitting at a desk" />
       </div>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;
