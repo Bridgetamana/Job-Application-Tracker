@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react";
 import { SidebarMenuItem } from "./SidebarMenuItem";
 import { MdOutlineMenu, MdOutlineLogout } from "react-icons/md";
-import { IoIosArrowDown, IoMdSettings } from "react-icons/io";
+import { IoIosArrowDown, IoIosArrowUp, IoMdSettings } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
 
 const SideBar = () => {
-  
   const dropdownMenu = [
     {
       id: 0,
@@ -39,13 +38,13 @@ const SideBar = () => {
     const currentItem = menuItems.find((item) =>
       location.pathname.endsWith(item.path)
     );
-    const currentdropdownItem = dropdownMenu.find((item) =>
+    const currentDropdownItem = dropdownMenu.find((item) =>
       location.pathname.endsWith(item.path)
     );
     if (currentItem) {
       setPageTitle(currentItem.label);
-    } else if (currentdropdownItem) {
-      setPageTitle(currentdropdownItem.label);
+    } else if (currentDropdownItem) {
+      setPageTitle(currentDropdownItem.label);
     } else {
       setPageTitle("");
     }
@@ -57,42 +56,52 @@ const SideBar = () => {
 
   return (
     <div>
-      <nav className="border-b border-gray-light px-5 py-4 fixed left-0 right-0 top-0 z-50 lg:hidden bg-white">
-        <div className="flex gap-8 items-center">
-          <button className="text-xl md:text-3xl" onClick={toggleMenu}>
+      <nav
+        className={`border-b border-gray-light px-5 py-2.5 fixed left-2 top-2 rounded-full z-50 w-56 lg:hidden bg-[#0C0C0C] text-white ${
+          openSidebar ? "hidden" : "translate-x-0"
+        }`}
+      >
+        <div className="flex gap-4 items-center">
+          <button className="" onClick={toggleMenu}>
             <MdOutlineMenu />
           </button>
-          <h3 className="md:text-2xl">{pageTitle}</h3>
+          <h3 className="text-sm">{pageTitle}</h3>
         </div>
       </nav>
       <div
-        className={`fixed top-0 left-0 z-40 w-56 h-screen pt-14 lg:pt-8 transition-transform ${
-          openSidebar ? "translate-x-0" : "-translate-x-full"
-        } bg-white border-r border-gray-light lg:translate-x-0`}
+        className={`fixed top-2 left-2 bottom-2 rounded-[28px] z-40 w-56 py-4 lg:py-6 transition-transform ${
+          openSidebar ? "translate-x-0" : "hidden lg:block"
+        } bg-[#0C0C0C] lg:translate-x-0`}
       >
-        <div className="overflow-y-auto py-4 px-6 h-full bg-white">
-          <ul className="space-y-2">
+        <div className="rounded-[20px] overflow-y-auto px-4 bg-[#0C0C0C] text-white h-full">
+          <div className="flex items-center justify-between pl-6">
+            <p className="text-sm">Job Tracker</p>
+            <button className="text-xl lg:hidden" onClick={toggleMenu}>
+              <MdOutlineMenu />
+            </button>
+          </div>
+          <ul className="space-y-4 mt-6">
             {menuItems.map((item) => (
               <li key={item.id} onClick={toggleMenu}>
                 <Link
                   to={item.path}
-                  className="flex items-center p-2 text-[#606060] rounded-lg transition duration-75 hover:bg-teal-light cursor-pointer hover:text-teal focus:text-gray-dark focus:bg-teal-light text-lg"
+                  className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer active:text-[#163E20] active:bg-[#FAFEFB] hover:bg-[#ADB6B1] hover:text-[#242424] transition-colors duration-300"
                 >
                   <span className="text-xl">{item.icon}</span>
-                  <h4 className="ml-3">{item.label}</h4>
+                  <h4 className="">{item.label}</h4>
                 </Link>
               </li>
             ))}
           </ul>
         </div>
-        <div className="absolute bottom-0 py-4 px-6 left-0 p-4 border-t border-gray-light w-full">
+        <div className="absolute bottom-0 p-6 left-0">
           {dropdownVisible && (
-            <div className="my-4 rounded shadow-sm absolute bottom-14 ">
-              <ul className="py-3 text-[#606060]">
+            <div className="my-4 rounded shadow-sm absolute bottom-14 bg-[#0C0C0C] w-44">
+              <ul className="py-3 text-white space-y-2">
                 {dropdownMenu.map((item) => (
                   <li
                     key={item.id}
-                    className="flex items-center gap-2 p-2 pr-20 hover:bg-teal-light cursor-pointer rounded-lg hover:text-teal focus:text-gray-dark focus:bg-teal-light text-lg"
+                    className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer active:text-[#163E20] active:bg-[#FAFEFB] hover:bg-[#ADB6B1] hover:text-[#242424] transition-colors duration-300"
                     onClick={toggleMenu}
                   >
                     <span>{item.icon}</span>
@@ -105,14 +114,18 @@ const SideBar = () => {
             </div>
           )}
           <div
-            className="flex items-center justify-between hover:cursor-pointer"
+            className="flex items-center gap-28 hover:cursor-pointer"
             onClick={toggleDropdown}
           >
-            <span className="bg-teal-light text-teal-dark rounded-full p-2">
+            <span className="bg-teal-light text-teal-dark rounded-full p-1.5 text-sm">
               BA
             </span>
-            <span>
-              <IoIosArrowDown />
+            <span
+              className={`transition-transform duration-300 text-white ${
+                dropdownVisible ? "rotate-180" : "rotate-0"
+              }`}
+            >
+              {dropdownVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
             </span>
           </div>
         </div>
