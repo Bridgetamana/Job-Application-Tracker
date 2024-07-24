@@ -5,13 +5,13 @@ const DashboardCard = ({ to, icon: Icon, title, description }) => {
     <div>
       <Link
         to={to}
-        className="block max-w-sm p-4 bg-white rounded-lg shadow-sm hover:shadow-lg h-full"
+        className="block max-w-sm p-4 bg-white rounded-xl hover:bg-[#f8f8f8] h-full border border-[#D4DBD7] shadow-sm"
       >
-        <span className="flex w-8 h-8 rounded-full bg-teal-light items-center justify-center text-teal-dark">
+        <span className="flex w-8 h-8 rounded-full items-center justify-center text-[#0EBC54] text-xl">
           <Icon />
         </span>
-        <h5 className="mb-2 text-xl font-bold text-gray-dark">{title}</h5>
-        <p className="text-gray">{description}</p>
+        <h5 className="text-lg font-bold text-[#2D2E2D]">{title}</h5>
+        <p className="text-[#7F8482]">{description}</p>
       </Link>
     </div>
   );

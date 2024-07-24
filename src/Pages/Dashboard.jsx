@@ -1,11 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import { LuUserCircle2, LuDownload, LuSearch } from "react-icons/lu";
 import {
   FaRegFileAlt,
   FaRegQuestionCircle,
   FaRegLightbulb,
-  FaPlus,
 } from "react-icons/fa";
 import { BsBriefcase } from "react-icons/bs";
 import DashboardCard from "../Components/DashboardCard";
@@ -13,30 +10,27 @@ import DashboardCard from "../Components/DashboardCard";
 const Dashboard = () => {
   return (
     <div>
-      <div className="mb-10 flex flex-wrap justify-between items-center">
-        <h1 className="text-[28px] font-bold text-teal">Welcome back Bridget,</h1>
-        <div className="rounded-lg p-4 bg-white drop-shadow-sm flex gap-8 items-center mt-4 ">
-          <span className="flex flex-wrap gap-3 md:text-lg">
-            <p>Total Applications:</p>
-            <p className="text-[#9CDACA]">0</p>
+      <div className="mb-5 flex flex-wrap justify-between items-center">
+        <h1 className="font-bold text-[#2A2A2A] text-xl lg:text-lg">Good Evening Bridget,</h1>
+        <div className="gap-2 items-center border-l-2 border-[#5D6661] pl-4 hidden lg:flex">
+          <span className="bg-teal-light text-teal-dark rounded-full p-1.5 text-sm">
+            BA
           </span>
-          <button className="bg-teal text-white rounded-md py-2 px-2.5 flex justify-center items-center gap-3 text-sm">
-            <Link to="/dashboard/applications">Add new Job</Link>
-            <span className="text-sm">
-              <FaPlus />
-            </span>
-          </button>
+          <div>
+            <p className="text-[12px]">Bridget Amana</p>
+            <p className="text-[12px]">amanabridget03@gmail.com</p>
+          </div>
         </div>
       </div>
       <div className="rounded-lg mb-4">
         <div>
           <h2 className="text-xl text-gray-dark">Getting Started</h2>
 
-          <div className="w-80 bg-gray-light rounded-full h-1.5 my-2">
-            <div className="bg-teal h-1.5 rounded-full w-[30%]"></div>
+          <div className="w-[80%] bg-gray-light rounded-full h-1.5 my-2">
+            <div className="bg-teal h-1.5 rounded-full w-[20%]"></div>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
             <DashboardCard
               to="/dashboard/profile"
               icon={LuUserCircle2}
