@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Doughnut, Pie } from "react-chartjs-2";
 import { LuUserCircle2, LuSearch } from "react-icons/lu";
 import {
@@ -11,6 +11,8 @@ import DashboardCard from "../Components/DashboardCard";
 import "chart.js/auto";
 
 const Dashboard = () => {
+
+  //chart data
   const applicationData = [
     { status: "Applied", count: 12 },
     { status: "Interview", count: 8 },
@@ -60,6 +62,12 @@ const Dashboard = () => {
      },
    ];
 
+   const toggleChartType = (type) => {
+     setChartType(type);
+     setMenuOpen(false);
+   };
+
+   //chart total calculations
   const totalApplications = applicationData.reduce(
     (sum, item) => sum + item.count,
     0
@@ -71,34 +79,31 @@ const Dashboard = () => {
   const totalOffers =
     applicationData.find((item) => item.status === "Offer")?.count || 0;
 
+  //Usestate
   const [chartType, setChartType] = useState("pie");
-  const [greeting, setGreeting] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
 
-  useEffect(() => {
+  //Greeting function
+  const getGreeting = () => {
     const currentHour = new Date().getHours();
     if (currentHour < 12) {
-      setGreeting("Good Morning");
+      return "Good Morning";
     } else if (currentHour < 17) {
-      setGreeting("Good Afternoon");
+      return "Good Afternoon";
     } else {
-      setGreeting("Good Evening");
+      return "Good Evening";
     }
-  }, []);
-
-  const toggleChartType = (type) => {
-    setChartType(type);
-    setMenuOpen(false);
   };
+
 
   return (
     <div>
       <div className="mb-5 flex flex-wrap justify-between items-center">
         <h1 className="font-bold text-[#2A2A2A] text-xl lg:text-lg">
-          {greeting} Bridget,
+          {getGreeting()} Bridget,
         </h1>
         <div className="gap-2 items-center border-l-2 border-[#5D6661] pl-4 hidden lg:flex">
-          <span className="bg-teal-light text-teal-dark rounded-full p-1.5 text-sm">
+          <span className="bg-green-light text-green rounded-full p-2 text-sm">
             BA
           </span>
           <div>
@@ -110,10 +115,6 @@ const Dashboard = () => {
       <div className="rounded-lg mb-4">
         <div>
           <h2 className="text-xl text-gray-dark">Getting Started</h2>
-
-          <div className="w-[80%] bg-gray-light rounded-full h-1.5 my-2">
-            <div className="bg-teal h-1.5 rounded-full w-[20%]"></div>
-          </div>
 
           <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
             <DashboardCard
@@ -177,34 +178,34 @@ const Dashboard = () => {
                     <Doughnut data={data} options={options} />
                     <div className="space-y-2 hidden md:block lg:hidden">
                       <div className="flex items-center">
-                        <p className="text-sm text-[#8B8C8B] mr-1">
+                        <p className="text-sm text-gray mr-1">
                           Total Applications:
                         </p>
-                        <p className="font-bold text-[#626462]">
+                        <p className="font-bold text-primary-text">
                           {totalApplications}
                         </p>
                       </div>
                       <div className="flex items-center">
-                        <p className="text-sm text-[#8B8C8B] mr-1">
+                        <p className="text-sm text-gray mr-1">
                           Total Rejected
                         </p>
-                        <p className="font-bold text-[#626462]">
+                        <p className="font-bold text-primary-text">
                           {totalRejected}
                         </p>
                       </div>
                       <div className="flex items-center">
-                        <p className="text-sm text-[#8B8C8B] mr-1">
+                        <p className="text-sm text-gray mr-1">
                           Total Interviews
                         </p>
-                        <p className="font-bold text-[#626462]">
+                        <p className="font-bold text-primary-text">
                           {totalInterviews}
                         </p>
                       </div>
                       <div className="flex items-center">
-                        <p className="text-sm text-[#8B8C8B] mr-1">
+                        <p className="text-sm text-gray mr-1">
                           Total Offers
                         </p>
-                        <p className="font-bold text-[#626462]">
+                        <p className="font-bold text-primary-text">
                           {totalOffers}
                         </p>
                       </div>
@@ -216,34 +217,34 @@ const Dashboard = () => {
                     <Pie data={data} options={options} />
                     <div className="space-y-2 hidden md:block lg:hidden">
                       <div className="flex items-center">
-                        <p className="text-sm text-[#8B8C8B] mr-1">
+                        <p className="text-sm text-gray mr-1">
                           Total Applications:
                         </p>
-                        <p className="font-bold text-[#626462]">
+                        <p className="font-bold text-primary-text">
                           {totalApplications}
                         </p>
                       </div>
                       <div className="flex items-center">
-                        <p className="text-sm text-[#8B8C8B] mr-1">
+                        <p className="text-sm text-gray mr-1">
                           Total Rejected
                         </p>
-                        <p className="font-bold text-[#626462]">
+                        <p className="font-bold text-primary-text">
                           {totalRejected}
                         </p>
                       </div>
                       <div className="flex items-center">
-                        <p className="text-sm text-[#8B8C8B] mr-1">
+                        <p className="text-sm text-gray mr-1">
                           Total Interviews
                         </p>
-                        <p className="font-bold text-[#626462]">
+                        <p className="font-bold text-primary-text">
                           {totalInterviews}
                         </p>
                       </div>
                       <div className="flex items-center">
-                        <p className="text-sm text-[#8B8C8B] mr-1">
+                        <p className="text-sm text-gray mr-1">
                           Total Offers
                         </p>
-                        <p className="font-bold text-[#626462]">
+                        <p className="font-bold text-primary-text">
                           {totalOffers}
                         </p>
                       </div>
@@ -253,26 +254,26 @@ const Dashboard = () => {
               </div>
               <div className="mt-4 grid grid-cols-2 gap-2 md:hidden lg:grid">
                 <div className="flex items-center">
-                  <p className="text-sm text-[#8B8C8B] mr-1">
+                  <p className="text-sm text-gray mr-1">
                     Total Applications:
                   </p>
-                  <p className="font-bold text-[#626462]">
+                  <p className="font-bold text-primary-text">
                     {totalApplications}
                   </p>
                 </div>
                 <div className="flex items-center">
-                  <p className="text-sm text-[#8B8C8B] mr-1">Total Rejected</p>
-                  <p className="font-bold text-[#626462]">{totalRejected}</p>
+                  <p className="text-sm text-gray mr-1">Total Rejected</p>
+                  <p className="font-bold text-primary-text">{totalRejected}</p>
                 </div>
                 <div className="flex items-center">
-                  <p className="text-sm text-[#8B8C8B] mr-1">
+                  <p className="text-sm text-gray mr-1">
                     Total Interviews
                   </p>
-                  <p className="font-bold text-[#626462]">{totalInterviews}</p>
+                  <p className="font-bold text-primary-text">{totalInterviews}</p>
                 </div>
                 <div className="flex items-center">
-                  <p className="text-sm text-[#8B8C8B] mr-1">Total Offers</p>
-                  <p className="font-bold text-[#626462]">{totalOffers}</p>
+                  <p className="text-sm text-gray mr-1">Total Offers</p>
+                  <p className="font-bold text-primary-text">{totalOffers}</p>
                 </div>
               </div>
             </div>
@@ -282,12 +283,12 @@ const Dashboard = () => {
                 {resources.map((resource, index) => (
                   <div
                     key={index}
-                    className="flex items-center justify-between py-2 cursor-pointer border-l-4 pl-3 pr-2 rounded"
+                    className="flex items-center justify-between py-2 cursor-pointer border-l-4 pl-3 pr-2 rounded shadow-sm"
                   >
                     <p>{resource.title}</p>
                     <a
                       href={resource.viewUrl}
-                      className="hidden md:flex items-center gap-2 bg-white rounded-full border p-1.5 pl-4 hover:bg-gray-dark hover:text-white hover:shadow-md group"
+                      className="hidden md:flex items-center gap-2 bg-white rounded-full border p-1.5 pl-4 hover:bg-dark-gray hover:text-white hover:shadow-md group"
                     >
                       <p className="hidden md:flex">View</p>
                       <div className="group-hover:bg-gray group-hover:rounded-full group-hover:p-1.5 bg-white p-1.5">
@@ -296,7 +297,7 @@ const Dashboard = () => {
                     </a>
                     <a
                       href={resource.viewUrl}
-                      className="md:hidden p-1.5 hover:bg-gray-dark rounded-full hover:text-white border"
+                      className="md:hidden p-1.5 hover:bg-dark-gray rounded-full hover:text-white border"
                     >
                       <FaLongArrowAltRight />
                     </a>

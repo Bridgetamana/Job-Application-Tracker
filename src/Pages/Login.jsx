@@ -18,7 +18,7 @@ const Login = () => {
                 placeholder="youremail@gmail.com"
                 required
                 autoComplete="email"
-                className="block w-full rounded-lg outline-none py-2 px-2.5 mt-2 text-gray-dark shadow-sm border  border-[#A3A3A3]"
+                className="block w-full rounded-lg outline-none py-2 px-2.5 mt-2 text-gray-dark shadow-sm border  border-gray"
               />
             </div>
             <div>
@@ -26,7 +26,7 @@ const Login = () => {
                 <label htmlFor="name" className=" p-2">
                   Password
                 </label>
-                <a href="#" className="text-sm text-[#00842B]">
+                <a href="#" className="text-sm text-tertiary-text hover:underline">
                   Forgot password?
                 </a>
               </span>
@@ -35,14 +35,14 @@ const Login = () => {
                 id="name"
                 placeholder="***********"
                 required
-                className="block w-full rounded-lg outline-none py-2 px-2.5 text-gray-dark shadow-sm border  border-[#A3A3A3]"
+                className="block w-full rounded-lg outline-none py-2 px-2.5 text-gray-dark shadow-sm border  border-[gray"
               />
             </div>
             <div className="pt-4">
-              <button className="flex w-full justify-center rounded-lg bg-[#000] p-3 text-sm font-semibold text-white mb-2">
+              <button className="flex w-full justify-center rounded-lg bg-black p-3 text-sm font-semibold text-white mb-2">
                 <Link to="/dashboard">Sign in</Link>
               </button>
-              <p className="text-sm text-[#5D6661]">
+              <p className="text-sm text-dark-gray">
                 Don&apos;t have an account?{" "}
                 <Link to="/signup" className="underline hover:no-underline">
                   create one

@@ -19,7 +19,7 @@ const Signup = () => {
                 id="name"
                 placeholder="Enter your name...."
                 required
-                className="block w-full rounded-lg outline-none py-2 px-2.5 mt-2 text-gray-dark shadow-sm border  border-[#A3A3A3]"
+                className="block w-full rounded-lg outline-none py-2 px-2.5 mt-2 text-gray-dark shadow-sm border  border-gray"
               />
             </div>
             <div>
@@ -32,7 +32,7 @@ const Signup = () => {
                 placeholder="youremail@gmail.com"
                 required
                 autoComplete="email"
-                className="block w-full rounded-lg outline-none py-2 px-2.5 mt-2 text-gray-dark shadow-sm border  border-[#A3A3A3]"
+                className="block w-full rounded-lg outline-none py-2 px-2.5 mt-2 text-gray-dark shadow-sm border  border-gray"
               />
             </div>
             <div>
@@ -44,14 +44,14 @@ const Signup = () => {
                 id="name"
                 placeholder="**********"
                 required
-                className="block w-full rounded-lg outline-none py-2 px-2.5 mt-2 text-gray-dark shadow-sm border  border-[#A3A3A3]"
+                className="block w-full rounded-lg outline-none py-2 px-2.5 mt-2 text-gray-dark shadow-sm border  border-gray"
               />
             </div>
             <div className="pt-4">
-              <button className="flex w-full justify-center rounded-lg bg-[#000] p-3 text-sm font-semibold text-white mb-2">
+              <button className="flex w-full justify-center rounded-lg bg-black p-3 text-sm font-semibold text-white mb-2">
                 Create Account
               </button>
-              <p className="text-sm text-[#5D6661]">
+              <p className="text-sm text-dark-gray">
                 Already have an account?{" "}
                 <Link to="/login" className="underline hover:no-underline">
                   Login

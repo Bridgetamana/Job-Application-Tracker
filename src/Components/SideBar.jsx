@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { SidebarMenuItem } from "./SidebarMenuItem";
-import { MdOutlineMenu, MdOutlineLogout } from "react-icons/md";
+import { MdOutlineLogout } from "react-icons/md";
 import { IoIosArrowDown, IoIosArrowUp, IoMdSettings } from "react-icons/io";
 import { LiaWindowMinimize } from "react-icons/lia";
 import { Link, useLocation } from "react-router-dom";
 
 const SideBar = () => {
+
+  //bottom dropdown
   const dropdownMenu = [
     {
       id: 0,
@@ -21,12 +23,14 @@ const SideBar = () => {
     },
   ];
 
+  //usestates
   const menuItems = SidebarMenuItem();
   const [openSidebar, setOpenSidebar] = useState(false);
   const [dropdownVisible, setDropdownVisible] = useState(false);
   const [pageTitle, setPageTitle] = useState("");
   const location = useLocation();
 
+  // toggle functions
   const toggleMenu = () => {
     setOpenSidebar(!openSidebar);
   };
@@ -35,6 +39,7 @@ const SideBar = () => {
     setDropdownVisible(!dropdownVisible);
   };
 
+  // find page title function
   const findPageTitle = () => {
     const currentItem = menuItems.find((item) =>
       location.pathname.endsWith(item.path)
@@ -58,7 +63,7 @@ const SideBar = () => {
   return (
     <div>
       <nav
-        className={`border-b border-gray-light px-5 py-2.5 fixed left-2 top-2 rounded-full z-50 w-56 lg:hidden bg-[#19211D] text-white ${
+        className={`px-5 py-2.5 fixed left-2 top-2 rounded-full z-50 w-56 lg:hidden bg-[#19211D] text-white ${
           openSidebar ? "hidden" : "translate-x-0"
         }`}
       >
@@ -89,12 +94,14 @@ const SideBar = () => {
               <LiaWindowMinimize className="rotate-90" />
             </button>
           </div>
+
+          {/* Top sidebar items */}
           <ul className="space-y-4 mt-6">
             {menuItems.map((item) => (
               <li key={item.id} onClick={toggleMenu}>
                 <Link
                   to={item.path}
-                  className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer active:text-[#163E20] active:bg-[#FAFEFB] hover:bg-[#E0E1E0] hover:text-[#242424] transition-colors duration-300"
+                  className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer hover:bg-[#E0E1E0] hover:text-primary-text transition-colors duration-300"
                 >
                   <span className="text-xl">{item.icon}</span>
                   <h4 className="">{item.label}</h4>
@@ -103,6 +110,7 @@ const SideBar = () => {
             ))}
           </ul>
         </div>
+          {/* Bottom sidebar items */}
         <div className="absolute bottom-0 p-6 left-0">
           {dropdownVisible && (
             <div className="my-4 rounded shadow-sm absolute bottom-14 bg-[#19211D] w-44 lg:hidden">
@@ -110,7 +118,7 @@ const SideBar = () => {
                 {dropdownMenu.map((item) => (
                   <li
                     key={item.id}
-                    className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer active:text-[#163E20] active:bg-[#FAFEFB] hover:bg-[#E0E1E0] hover:text-[#242424] transition-colors duration-300"
+                    className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer hover:bg-[#E0E1E0] hover:text-primary-text transition-colors duration-300"
                     onClick={toggleMenu}
                   >
                     <span>{item.icon}</span>
@@ -127,7 +135,7 @@ const SideBar = () => {
               {dropdownMenu.map((item) => (
                 <li
                   key={item.id}
-                  className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer active:text-[#163E20] active:bg-[#FAFEFB] hover:bg-[#E0E1E0] hover:text-[#242424] transition-colors duration-300"
+                  className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer hover:bg-[#E0E1E0] hover:text-primary-text transition-colors duration-300"
                   onClick={toggleMenu}
                 >
                   <span>{item.icon}</span>
@@ -142,7 +150,7 @@ const SideBar = () => {
             className="flex items-center gap-28 hover:cursor-pointer lg:hidden"
             onClick={toggleDropdown}
           >
-            <span className="bg-teal-light text-teal-dark rounded-full p-1.5 text-sm">
+            <span className="bg-green-light text-green rounded-full p-2 text-sm">
               BA
             </span>
             <span
