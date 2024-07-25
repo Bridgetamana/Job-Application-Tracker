@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const EditJobModal = ({ job, setEditModal, onEditJob }) => {
   const [editedJob, setEditedJob] = useState(job);
@@ -18,7 +18,7 @@ const EditJobModal = ({ job, setEditModal, onEditJob }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-[#000]/50 z-40 flex justify-center items-center">
+    <div className="fixed inset-0 bg-black/80 z-40 flex justify-center items-center">
       <div className="p-6 w-[70%] lg:w-[50%] shadow-md bg-[#f3f3f3] rounded-lg">
         <div>
           <h2 className="text-2xl font-semibold mb-4">Edit Job</h2>
@@ -29,7 +29,7 @@ const EditJobModal = ({ job, setEditModal, onEditJob }) => {
               value={editedJob.jobTitle}
               onChange={handleInputChange}
               placeholder="Job Title"
-              className="border border-gray-light rounded-md p-2 outline-none focus:ring-[1px] focus:ring-teal"
+              className="border border-light-gray rounded-md p-2 outline-none focus:ring-[1px] focus:ring-[#E0E1E6]"
               required
             />
             <input
@@ -38,7 +38,7 @@ const EditJobModal = ({ job, setEditModal, onEditJob }) => {
               value={editedJob.companyName}
               onChange={handleInputChange}
               placeholder="Company Name"
-              className="border border-gray-light rounded-md p-2 outline-none focus:ring-[1px] focus:ring-teal"
+              className="border border-light-gray rounded-md p-2 outline-none focus:ring-[1px] focus:ring-[#E0E1E6]"
               required
             />
             <input
@@ -47,14 +47,14 @@ const EditJobModal = ({ job, setEditModal, onEditJob }) => {
               value={editedJob.applicationDate}
               onChange={handleInputChange}
               placeholder="Application Date"
-              className="border border-gray-light rounded-md p-2 outline-none focus:ring-[1px] focus:ring-teal"
+              className="border border-light-gray rounded-md p-2 outline-none focus:ring-[1px] focus:ring-[#E0E1E6]"
               required
             />
             <select
               name="status"
               value={editedJob.status}
               onChange={handleInputChange}
-              className="border border-gray-light rounded-md p-2 outline-none focus:ring-[1px] focus:ring-teal"
+              className="border border-light-gray rounded-md p-2 outline-none focus:ring-[1px] focus:ring-[#E0E1E6]"
               required
             >
               <option value="applied">Applied</option>
@@ -66,14 +66,14 @@ const EditJobModal = ({ job, setEditModal, onEditJob }) => {
               <button
                 type="button"
                 onClick={handleSaveChanges}
-                className="bg-teal text-white rounded-md py-2 px-4"
+                className="bg-black text-white rounded-md py-2 px-4"
               >
                 Save
               </button>
               <button
                 type="button"
                 onClick={handleCancel}
-                className="bg-gray-light text-gray-dark rounded-md py-2 px-4"
+                className="bg-light-gray text-primary-text rounded-md py-2 px-4"
               >
                 Cancel
               </button>
