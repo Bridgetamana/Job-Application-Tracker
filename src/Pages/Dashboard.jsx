@@ -1,17 +1,102 @@
-import { LuUserCircle2, LuDownload, LuSearch } from "react-icons/lu";
+import { useState, useEffect } from "react";
+import { Doughnut, Pie } from "react-chartjs-2";
+import { LuUserCircle2, LuSearch } from "react-icons/lu";
 import {
-  FaRegFileAlt,
-  FaRegQuestionCircle,
+  FaLongArrowAltRight,
   FaRegLightbulb,
 } from "react-icons/fa";
 import { BsBriefcase } from "react-icons/bs";
+import { CiMenuKebab } from "react-icons/ci";
 import DashboardCard from "../Components/DashboardCard";
+import "chart.js/auto";
 
 const Dashboard = () => {
+  const applicationData = [
+    { status: "Applied", count: 12 },
+    { status: "Interview", count: 8 },
+    { status: "Offer", count: 3 },
+    { status: "Rejected", count: 23 },
+  ];
+
+  const data = {
+    labels: applicationData.map((item) => item.status),
+    datasets: [
+      {
+        label: "Applications",
+        data: applicationData.map((item) => item.count),
+        backgroundColor: ["#36A2EB", "#FFCE56", "#00842B", "#FF6384"],
+        hoverOffset: 4,
+      },
+    ],
+  };
+
+  const options = {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+    animation: {
+      duration: 1000,
+      easing: "easeInOutQuad",
+    },
+  };
+
+   const resources = [
+     {
+       title: "Resume and cover letter template",
+       viewUrl: "",
+     },
+     { title: "Interview preparation guide", viewUrl: "" },
+     { title: "Job search strategies", viewUrl: "" },
+     { title: "Networking tips", viewUrl: "" },
+     {
+       title: "Career development plan",
+       viewUrl: "",
+     },
+     {
+       title: "Salary negotiation tactics",
+       viewUrl: "",
+     },
+   ];
+
+  const totalApplications = applicationData.reduce(
+    (sum, item) => sum + item.count,
+    0
+  );
+  const totalRejected =
+    applicationData.find((item) => item.status === "Rejected")?.count || 0;
+  const totalInterviews =
+    applicationData.find((item) => item.status === "Interview")?.count || 0;
+  const totalOffers =
+    applicationData.find((item) => item.status === "Offer")?.count || 0;
+
+  const [chartType, setChartType] = useState("pie");
+  const [greeting, setGreeting] = useState("");
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const currentHour = new Date().getHours();
+    if (currentHour < 12) {
+      setGreeting("Good Morning");
+    } else if (currentHour < 17) {
+      setGreeting("Good Afternoon");
+    } else {
+      setGreeting("Good Evening");
+    }
+  }, []);
+
+  const toggleChartType = (type) => {
+    setChartType(type);
+    setMenuOpen(false);
+  };
+
   return (
     <div>
       <div className="mb-5 flex flex-wrap justify-between items-center">
-        <h1 className="font-bold text-[#2A2A2A] text-xl lg:text-lg">Good Evening Bridget,</h1>
+        <h1 className="font-bold text-[#2A2A2A] text-xl lg:text-lg">
+          {greeting} Bridget,
+        </h1>
         <div className="gap-2 items-center border-l-2 border-[#5D6661] pl-4 hidden lg:flex">
           <span className="bg-teal-light text-teal-dark rounded-full p-1.5 text-sm">
             BA
@@ -30,13 +115,13 @@ const Dashboard = () => {
             <div className="bg-teal h-1.5 rounded-full w-[20%]"></div>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
+          <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
             <DashboardCard
               to="/dashboard/profile"
               icon={LuUserCircle2}
               title="Complete your profile"
               description="Add more details"
-            />{" "}
+            />
             <DashboardCard
               to="/dashboard/job"
               icon={LuSearch}
@@ -54,133 +139,173 @@ const Dashboard = () => {
               icon={FaRegLightbulb}
               title="Prepare for Interview"
               description="Browse our interview resources to help you prepare"
-            />{" "}
-          </div>
-        </div>
-      </div>
-      <div className="rounded-lg border-gray mb-4">
-        <h2 className="text-2xl text-gray-dark">Resources</h2>
-        <div className="mt-4 flex flex-wrap gap-10">
-          <div>
-            <span>
-              <h3 className="text-xl">Resume and cover letters</h3>
-              <p className="text-[#7E7E7E]">
-                Access templates and tips to create standout resumes and cover
-                letters.
-              </p>
-            </span>
-            <ul className="max-w-md mt-2 space-y-3">
-              <li className="pb-4 border-b border-[#D4D4D4]">
-                <div className="flex items-center space-x-4">
-                  <div className="">
-                    <LuDownload />
-                  </div>
-                  <div className="flex justify-between items-center flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-dark">
-                      Resume and cover Letter template
-                    </p>
-                    <button>
-                      <a
-                        href="https://www.canva.com/resumes/templates/"
-                        target="_blank"
-                        className="text-sm flex  border border-teal rounded-md p-2 text-teal"
-                      >
-                        Download Templates
-                      </a>
-                    </button>
-                  </div>
-                </div>
-              </li>
-              <li className="pb-4">
-                <div className="flex items-center space-x-4">
-                  <div className="flex-shrink-0">
-                    <span>
-                      <FaRegFileAlt />
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center flex-1 min-w-0">
-                    <p className="text-sm font-medium">Resume Builder</p>
-                    <button>
-                      <a
-                        href="https://zety.com/resume-builder"
-                        target="_blank"
-                        className="text-sm flex  border border-teal rounded-md p-2 text-teal"
-                      >
-                        Use Resume Builder
-                      </a>
-                    </button>
-                  </div>
-                </div>
-              </li>
-            </ul>
+            />
           </div>
 
-          <div>
-            <span>
-              <h3 className="text-xl">Interview Preparation</h3>
-              <p className="text-[#7E7E7E]">
-                Prepare for your interviews with common questions, and tips.
-              </p>
-            </span>
-            <ul className="max-w-md mt-2 space-y-3">
-              <li className="pb-4 border-b border-[#D4D4D4]">
-                <div className="flex items-center space-x-4">
-                  <div className="flex-shrink-0">
-                    <span>
-                      <FaRegQuestionCircle />
-                    </span>
+          <div className="grid lg:grid-cols-3 gap-4">
+            <div className="lg:col-span-2 p-4 relative">
+              <div className="flex justify-between items-center">
+                <h3 className="text-lg">Applications Tracking</h3>
+                <span
+                  onClick={() => setMenuOpen(!menuOpen)}
+                  className="hover:bg-[#E8E8E8] p-1.5 rounded-md relative"
+                >
+                  <CiMenuKebab className="rotate-90" />
+                  {menuOpen && (
+                    <div className="absolute right-0 mt-2 w-48 bg-white border border-[#E8E8E8] rounded shadow-sm z-10 p-2">
+                      <ul>
+                        <li
+                          className="p-2 hover:bg-[#E0E1E0] cursor-pointer text-sm rounded-md"
+                          onClick={() => toggleChartType("doughnut")}
+                        >
+                          Doughnut Chart
+                        </li>
+                        <li
+                          className="p-2 hover:bg-[#E0E1E0] cursor-pointer text-sm rounded-md"
+                          onClick={() => toggleChartType("pie")}
+                        >
+                          Pie Chart
+                        </li>
+                      </ul>
+                    </div>
+                  )}
+                </span>
+              </div>
+              <div className="w-full">
+                {chartType === "doughnut" && (
+                  <div className="max-h-[400px] flex gap-20 items-center">
+                    <Doughnut data={data} options={options} />
+                    <div className="space-y-2 hidden md:block lg:hidden">
+                      <div className="flex items-center">
+                        <p className="text-sm text-[#8B8C8B] mr-1">
+                          Total Applications:
+                        </p>
+                        <p className="font-bold text-[#626462]">
+                          {totalApplications}
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <p className="text-sm text-[#8B8C8B] mr-1">
+                          Total Rejected
+                        </p>
+                        <p className="font-bold text-[#626462]">
+                          {totalRejected}
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <p className="text-sm text-[#8B8C8B] mr-1">
+                          Total Interviews
+                        </p>
+                        <p className="font-bold text-[#626462]">
+                          {totalInterviews}
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <p className="text-sm text-[#8B8C8B] mr-1">
+                          Total Offers
+                        </p>
+                        <p className="font-bold text-[#626462]">
+                          {totalOffers}
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex justify-between items-center flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">
-                      Common Questions
-                    </p>
-                    <button>
-                      <a
-                        href="https://www.thebalancecareers.com/job-interview-questions-and-answers-2061204"
-                        target="_blank"
-                        className="text-sm flex  border border-teal rounded-md p-2 text-teal"
-                      >
-                        Review Questions
-                      </a>
-                    </button>
+                )}
+                {chartType === "pie" && (
+                  <div className="max-h-[400px] flex gap-20 items-center">
+                    <Pie data={data} options={options} />
+                    <div className="space-y-2 hidden md:block lg:hidden">
+                      <div className="flex items-center">
+                        <p className="text-sm text-[#8B8C8B] mr-1">
+                          Total Applications:
+                        </p>
+                        <p className="font-bold text-[#626462]">
+                          {totalApplications}
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <p className="text-sm text-[#8B8C8B] mr-1">
+                          Total Rejected
+                        </p>
+                        <p className="font-bold text-[#626462]">
+                          {totalRejected}
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <p className="text-sm text-[#8B8C8B] mr-1">
+                          Total Interviews
+                        </p>
+                        <p className="font-bold text-[#626462]">
+                          {totalInterviews}
+                        </p>
+                      </div>
+                      <div className="flex items-center">
+                        <p className="text-sm text-[#8B8C8B] mr-1">
+                          Total Offers
+                        </p>
+                        <p className="font-bold text-[#626462]">
+                          {totalOffers}
+                        </p>
+                      </div>
+                    </div>
                   </div>
+                )}
+              </div>
+              <div className="mt-4 grid grid-cols-2 gap-2 md:hidden lg:grid">
+                <div className="flex items-center">
+                  <p className="text-sm text-[#8B8C8B] mr-1">
+                    Total Applications:
+                  </p>
+                  <p className="font-bold text-[#626462]">
+                    {totalApplications}
+                  </p>
                 </div>
-              </li>
-              <li className="pb-4">
-                <div className="flex items-center space-x-4">
-                  <div className="flex-shrink-0">
-                    <span>
-                      <FaRegLightbulb />
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center flex-1 min-w-0">
-                    <p className="text-sm font-medium text-gray-900">
-                      Interview Tips
-                    </p>
-                    <button>
-                      <a
-                        href="https://www.indeed.com/career-advice/interviewing/job-interview-tips-how-to-make-a-great-impression"
-                        target="_blank"
-                        className="text-sm flex  border border-teal rounded-md p-2 text-teal"
-                      >
-                        Get Interview Tips
-                      </a>
-                    </button>
-                  </div>
+                <div className="flex items-center">
+                  <p className="text-sm text-[#8B8C8B] mr-1">Total Rejected</p>
+                  <p className="font-bold text-[#626462]">{totalRejected}</p>
                 </div>
-              </li>
-            </ul>
+                <div className="flex items-center">
+                  <p className="text-sm text-[#8B8C8B] mr-1">
+                    Total Interviews
+                  </p>
+                  <p className="font-bold text-[#626462]">{totalInterviews}</p>
+                </div>
+                <div className="flex items-center">
+                  <p className="text-sm text-[#8B8C8B] mr-1">Total Offers</p>
+                  <p className="font-bold text-[#626462]">{totalOffers}</p>
+                </div>
+              </div>
+            </div>
+            <div className="">
+              <h3 className="mb-2">Resources</h3>
+              <div className="grid md:grid-cols-2 gap-3 lg:grid-cols-1">
+                {resources.map((resource, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between py-2 cursor-pointer border-l-4 pl-3 pr-2 rounded"
+                  >
+                    <p>{resource.title}</p>
+                    <a
+                      href={resource.viewUrl}
+                      className="hidden md:flex items-center gap-2 bg-white rounded-full border p-1.5 pl-4 hover:bg-gray-dark hover:text-white hover:shadow-md group"
+                    >
+                      <p className="hidden md:flex">View</p>
+                      <div className="group-hover:bg-gray group-hover:rounded-full group-hover:p-1.5 bg-white p-1.5">
+                        <FaLongArrowAltRight />
+                      </div>
+                    </a>
+                    <a
+                      href={resource.viewUrl}
+                      className="md:hidden p-1.5 hover:bg-gray-dark rounded-full hover:text-white border"
+                    >
+                      <FaLongArrowAltRight />
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="rounded-lg pt-12 mb-4 flex justify-center">
-        Made with <span className="mx-1"> 💙</span> by{" "}
-        <a
-          href="https://github.com/Bridgetamana"
-          className="underline text-teal mx-1 hover:no-underline"
-        >
-          Bridget Amana
-        </a>
       </div>
     </div>
   );
