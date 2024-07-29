@@ -1,33 +1,31 @@
-import {
-  MdOutlineHome,
-  MdManageHistory,
-  MdWorkHistory,
-  MdOutlinePersonOutline,
-} from "react-icons/md";
+import { BsBriefcaseFill, BsFillPersonFill } from "react-icons/bs";
+import { AiFillFolderOpen } from "react-icons/ai";
+import { RiLayoutMasonryFill } from "react-icons/ri";
+
 
 export const SidebarMenuItem = () => [
   {
     id: 0,
     label: "Dashboard",
-    icon: <MdOutlineHome />,
+    icon: <RiLayoutMasonryFill />,
     path: "dashboard",
   },
   {
     id: 1,
     label: "Applications",
-    icon: <MdManageHistory />,
+    icon: <AiFillFolderOpen />,
     path: "applications",
   },
   {
     id: 2,
     label: "Job search",
-    icon: <MdWorkHistory />,
+    icon: <BsBriefcaseFill />,
     path: "job",
   },
   {
     id: 3,
     label: "Profile",
-    icon: <MdOutlinePersonOutline />,
+    icon: <BsFillPersonFill />,
     path: "profile",
   },
 ];

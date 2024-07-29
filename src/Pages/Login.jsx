@@ -26,7 +26,10 @@ const Login = () => {
                 <label htmlFor="name" className=" p-2">
                   Password
                 </label>
-                <a href="#" className="text-sm text-tertiary-text hover:underline">
+                <a
+                  href="#"
+                  className="text-sm text-tertiary-text hover:underline"
+                >
                   Forgot password?
                 </a>
               </span>
@@ -35,7 +38,7 @@ const Login = () => {
                 id="name"
                 placeholder="***********"
                 required
-                className="block w-full rounded-lg outline-none py-2 px-2.5 text-gray-dark shadow-sm border  border-[gray"
+                className="block w-full rounded-lg outline-none py-2 px-2.5 text-gray-dark shadow-sm border border-gray"
               />
             </div>
             <div className="pt-4">

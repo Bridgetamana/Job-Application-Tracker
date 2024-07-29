@@ -1,17 +1,13 @@
 import { useState } from "react";
 import { Doughnut, Pie } from "react-chartjs-2";
 import { LuUserCircle2, LuSearch } from "react-icons/lu";
-import {
-  FaLongArrowAltRight,
-  FaRegLightbulb,
-} from "react-icons/fa";
+import { FaLongArrowAltRight, FaRegLightbulb } from "react-icons/fa";
 import { BsBriefcase } from "react-icons/bs";
 import { CiMenuKebab } from "react-icons/ci";
 import DashboardCard from "../Components/DashboardCard";
 import "chart.js/auto";
 
 const Dashboard = () => {
-
   //chart data
   const applicationData = [
     { status: "Applied", count: 12 },
@@ -44,30 +40,30 @@ const Dashboard = () => {
     },
   };
 
-   const resources = [
-     {
-       title: "Resume and cover letter template",
-       viewUrl: "",
-     },
-     { title: "Interview preparation guide", viewUrl: "" },
-     { title: "Job search strategies", viewUrl: "" },
-     { title: "Networking tips", viewUrl: "" },
-     {
-       title: "Career development plan",
-       viewUrl: "",
-     },
-     {
-       title: "Salary negotiation tactics",
-       viewUrl: "",
-     },
-   ];
+  const resources = [
+    {
+      title: "Resume and cover letter template",
+      viewUrl: "",
+    },
+    { title: "Interview preparation guide", viewUrl: "" },
+    { title: "Job search strategies", viewUrl: "" },
+    { title: "Networking tips", viewUrl: "" },
+    {
+      title: "Career development plan",
+      viewUrl: "",
+    },
+    {
+      title: "Salary negotiation tactics",
+      viewUrl: "",
+    },
+  ];
 
-   const toggleChartType = (type) => {
-     setChartType(type);
-     setMenuOpen(false);
-   };
+  const toggleChartType = (type) => {
+    setChartType(type);
+    setMenuOpen(false);
+  };
 
-   //chart total calculations
+  //chart total calculations
   const totalApplications = applicationData.reduce(
     (sum, item) => sum + item.count,
     0
@@ -95,11 +91,10 @@ const Dashboard = () => {
     }
   };
 
-
   return (
     <div>
       <div className="mb-5 flex flex-wrap justify-between items-center">
-        <h1 className="font-bold text-[#2A2A2A] text-xl lg:text-lg">
+        <h1 className="font-bold text-[#2A2A2A] text-xl lg:text-2xl">
           {getGreeting()} Bridget,
         </h1>
         <div className="gap-2 items-center border-l-2 border-[#5D6661] pl-4 hidden lg:flex">
@@ -115,7 +110,12 @@ const Dashboard = () => {
       <div className="rounded-lg mb-4">
         <div>
           <h2 className="text-xl text-gray-dark">Getting Started</h2>
-
+          <div>
+            <div className="w-44 bg-light-gray rounded-full h-1.5 mt-1.5">
+              <div className="bg-dark-gray h-1.5 rounded-full w-20"></div>
+            </div>
+            <p className="mt-1 text-[12px]">45% done</p>
+          </div>
           <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-3 mb-12">
             <DashboardCard
               to="/dashboard/profile"
@@ -175,7 +175,9 @@ const Dashboard = () => {
               <div className="w-full">
                 {chartType === "doughnut" && (
                   <div className="max-h-[400px] flex gap-20 items-center">
-                    <Doughnut data={data} options={options} />
+                    <div className="relative">
+                      <Doughnut data={data} options={options} />
+                    </div>
                     <div className="space-y-2 hidden md:block lg:hidden">
                       <div className="flex items-center">
                         <p className="text-sm text-gray mr-1">
@@ -186,9 +188,7 @@ const Dashboard = () => {
                         </p>
                       </div>
                       <div className="flex items-center">
-                        <p className="text-sm text-gray mr-1">
-                          Total Rejected
-                        </p>
+                        <p className="text-sm text-gray mr-1">Total Rejected</p>
                         <p className="font-bold text-primary-text">
                           {totalRejected}
                         </p>
@@ -202,9 +202,7 @@ const Dashboard = () => {
                         </p>
                       </div>
                       <div className="flex items-center">
-                        <p className="text-sm text-gray mr-1">
-                          Total Offers
-                        </p>
+                        <p className="text-sm text-gray mr-1">Total Offers</p>
                         <p className="font-bold text-primary-text">
                           {totalOffers}
                         </p>
@@ -214,7 +212,9 @@ const Dashboard = () => {
                 )}
                 {chartType === "pie" && (
                   <div className="max-h-[400px] flex gap-20 items-center">
-                    <Pie data={data} options={options} />
+                    <div>
+                      <Pie data={data} options={options} />
+                    </div>
                     <div className="space-y-2 hidden md:block lg:hidden">
                       <div className="flex items-center">
                         <p className="text-sm text-gray mr-1">
@@ -225,9 +225,7 @@ const Dashboard = () => {
                         </p>
                       </div>
                       <div className="flex items-center">
-                        <p className="text-sm text-gray mr-1">
-                          Total Rejected
-                        </p>
+                        <p className="text-sm text-gray mr-1">Total Rejected</p>
                         <p className="font-bold text-primary-text">
                           {totalRejected}
                         </p>
@@ -241,9 +239,7 @@ const Dashboard = () => {
                         </p>
                       </div>
                       <div className="flex items-center">
-                        <p className="text-sm text-gray mr-1">
-                          Total Offers
-                        </p>
+                        <p className="text-sm text-gray mr-1">Total Offers</p>
                         <p className="font-bold text-primary-text">
                           {totalOffers}
                         </p>
@@ -254,9 +250,7 @@ const Dashboard = () => {
               </div>
               <div className="mt-4 grid grid-cols-2 gap-2 md:hidden lg:grid">
                 <div className="flex items-center">
-                  <p className="text-sm text-gray mr-1">
-                    Total Applications:
-                  </p>
+                  <p className="text-sm text-gray mr-1">Total Applications:</p>
                   <p className="font-bold text-primary-text">
                     {totalApplications}
                   </p>
@@ -266,10 +260,10 @@ const Dashboard = () => {
                   <p className="font-bold text-primary-text">{totalRejected}</p>
                 </div>
                 <div className="flex items-center">
-                  <p className="text-sm text-gray mr-1">
-                    Total Interviews
+                  <p className="text-sm text-gray mr-1">Total Interviews</p>
+                  <p className="font-bold text-primary-text">
+                    {totalInterviews}
                   </p>
-                  <p className="font-bold text-primary-text">{totalInterviews}</p>
                 </div>
                 <div className="flex items-center">
                   <p className="text-sm text-gray mr-1">Total Offers</p>

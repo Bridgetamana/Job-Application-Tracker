@@ -112,7 +112,7 @@ const Applications = () => {
             type="search"
             name="search"
             placeholder="search"
-            className="w-24 outline-none"
+            className="w-24 outline-none bg-white"
           />
         </form>
         <div className="flex justify-between items-center gap-4">

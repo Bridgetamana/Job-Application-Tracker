@@ -24,7 +24,7 @@ const AddNewJobs = ({ setJobModal, onAddJob }) => {
 
   return (
     <div className="fixed inset-0 bg-black/80 z-40">
-      <div className="p-6 w-[70%] lg:w-[50%] shadow-md fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-[#f3f3f3] rounded-lg">
+      <div className="p-6 w-[80%] lg:w-[50%] shadow-md fixed top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] bg-[#f3f3f3] rounded-lg">
         <div>
           <h2 className="text-2xl font-semibold mb-4">Add New Job</h2>
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -63,7 +63,7 @@ const AddNewJobs = ({ setJobModal, onAddJob }) => {
               <option value="offered">Offered</option>
               <option value="rejected">Rejected</option>
             </select>
-            <div className="flex justify-between">
+            <div className="flex gap-3 justify-end">
               <button
                 type="submit"
                 className="bg-black text-white rounded-md py-2 px-4"

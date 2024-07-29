@@ -1,24 +1,24 @@
 import { useState, useEffect } from "react";
 import { SidebarMenuItem } from "./SidebarMenuItem";
-import { MdOutlineLogout } from "react-icons/md";
-import { IoIosArrowDown, IoIosArrowUp, IoMdSettings } from "react-icons/io";
-import { LiaWindowMinimize } from "react-icons/lia";
+import { RiLogoutCircleRFill } from "react-icons/ri";
+import { RiSettings5Fill } from "react-icons/ri";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { BsLayoutSidebarInset } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 
 const SideBar = () => {
-
   //bottom dropdown
   const dropdownMenu = [
     {
       id: 0,
       label: "Settings",
-      icon: <IoMdSettings />,
+      icon: <RiSettings5Fill />,
       path: "settings",
     },
     {
       id: 1,
       label: "Log Out",
-      icon: <MdOutlineLogout />,
+      icon: <RiLogoutCircleRFill />,
       path: "/login",
     },
   ];
@@ -63,25 +63,34 @@ const SideBar = () => {
   return (
     <div>
       <nav
-        className={`px-5 py-2.5 fixed left-2 top-2 rounded-full z-50 w-56 lg:hidden bg-[#19211D] text-white ${
-          openSidebar ? "hidden" : "translate-x-0"
+        className={`px-5 py-3 fixed z-50 w-full lg:hidden bg-[#19211D] text-white ${
+          openSidebar ? "-translate-y-full" : "translate-x-0"
         }`}
       >
-        <div className="flex justify-between items-center">
-          <h3 className="text-sm">{pageTitle}</h3>
+        <div className="flex gap-3 items-center">
           <button
             className="text-xl lg:hidden"
             title="Expand Sidebar"
             onClick={toggleMenu}
           >
-            <LiaWindowMinimize className="rotate-90" />
+            <BsLayoutSidebarInset className="" />
           </button>
+          <h3 className="md:text-lg">{pageTitle}</h3>
         </div>
       </nav>
+
+      {openSidebar && (
+        <div
+          className="fixed inset-0 bg-black/60 z-40"
+          onClick={toggleMenu}
+        ></div>
+      )}
+
       <div
-        className={`fixed top-2 left-2 bottom-2 rounded-[28px] z-40 w-56 py-4 lg:py-6 transition-transform ${
-          openSidebar ? "translate-x-0" : "hidden lg:block"
-        } bg-[#19211D] lg:translate-x-0`}
+        className={`fixed h-full top-0 left-0 bottom-0 z-40 w-56 py-4 lg:py-6 transition-transform 
+ ${
+   openSidebar ? "translate-x-0" : "-translate-x-full lg:block"
+ } bg-[#19211D] lg:translate-x-0`}
       >
         <div className="rounded-[20px] overflow-y-auto px-4 bg-[#19211D] text-white h-full">
           <div className="flex items-center justify-between pl-6">
@@ -91,7 +100,7 @@ const SideBar = () => {
               title="Minimize Sidebar"
               onClick={toggleMenu}
             >
-              <LiaWindowMinimize className="rotate-90" />
+              <BsLayoutSidebarInset className="" />
             </button>
           </div>
 
@@ -110,7 +119,7 @@ const SideBar = () => {
             ))}
           </ul>
         </div>
-          {/* Bottom sidebar items */}
+        {/* Bottom sidebar items */}
         <div className="absolute bottom-0 p-6 left-0">
           {dropdownVisible && (
             <div className="my-4 rounded shadow-sm absolute bottom-14 bg-[#19211D] w-44 lg:hidden">
@@ -121,7 +130,7 @@ const SideBar = () => {
                     className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer hover:bg-[#E0E1E0] hover:text-primary-text transition-colors duration-300"
                     onClick={toggleMenu}
                   >
-                    <span>{item.icon}</span>
+                    <span className="text-xl">{item.icon}</span>
                     <Link to={item.path} className="text-sm">
                       {item.label}
                     </Link>
@@ -138,7 +147,7 @@ const SideBar = () => {
                   className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer hover:bg-[#E0E1E0] hover:text-primary-text transition-colors duration-300"
                   onClick={toggleMenu}
                 >
-                  <span>{item.icon}</span>
+                  <span className="text-xl">{item.icon}</span>
                   <Link to={item.path} className="text-sm">
                     {item.label}
                   </Link>
