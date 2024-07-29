@@ -43,11 +43,21 @@ const Dashboard = () => {
   const resources = [
     {
       title: "Resume and cover letter template",
-      viewUrl: "",
+      viewUrl: "https://zety.com/cover-letter-templates",
     },
-    { title: "Interview preparation guide", viewUrl: "" },
-    { title: "Job search strategies", viewUrl: "" },
-    { title: "Networking tips", viewUrl: "" },
+    {
+      title: "Interview preparation guide",
+      viewUrl:
+        "https://www.themuse.com/advice/the-ultimate-interview-guide-30-prep-tips-for-job-interview-success",
+    },
+    {
+      title: "Job search strategies",
+      viewUrl: "https://www.careerflow.ai/blog/job-search-guide",
+    },
+    {
+      title: "Networking tips",
+      viewUrl: "https://hbr.org/2023/03/a-beginners-guide-to-networking",
+    },
     {
       title: "Career development plan",
       viewUrl: "",
@@ -281,7 +291,7 @@ const Dashboard = () => {
                   >
                     <p>{resource.title}</p>
                     <a
-                      href={resource.viewUrl}
+                      href={resource.viewUrl} target="_blank"
                       className="hidden md:flex items-center gap-2 bg-white rounded-full border p-1.5 pl-4 hover:bg-dark-gray hover:text-white hover:shadow-md group"
                     >
                       <p className="hidden md:flex">View</p>
@@ -290,7 +300,7 @@ const Dashboard = () => {
                       </div>
                     </a>
                     <a
-                      href={resource.viewUrl}
+                      href={resource.viewUrl} target="_blank"
                       className="md:hidden p-1.5 hover:bg-dark-gray rounded-full hover:text-white border"
                     >
                       <FaLongArrowAltRight />
