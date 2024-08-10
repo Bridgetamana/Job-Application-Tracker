@@ -1,10 +1,9 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   MdMailOutline,
   MdOutlineCall,
   MdOutlineLocationOn,
   MdOutlineEdit,
-  MdDelete,
   MdAdd,
 } from "react-icons/md";
 
@@ -16,14 +15,26 @@ const Profile = () => {
   const [editingResume, setEditingResume] = useState(false);
   const [editingSkills, setEditingSkills] = useState(false);
 
-  const [name, setName] = useState("John the Doe");
-  const [email, setEmail] = useState("johnthedoe123@example.com");
-  const [phone, setPhone] = useState("+2348056789019");
-  const [location, setLocation] = useState("Mars");
-  const [experience, setExperience] = useState("Add your experience");
-  const [jobType, setJobType] = useState("Contract");
-  const [skills, setSkills] = useState(["Javascript", "HTML"]);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [location, setLocation] = useState("");
+  const [experience, setExperience] = useState("");
+  const [jobType, setJobType] = useState("");
+  const [skills, setSkills] = useState([]);
   const [newSkill, setNewSkill] = useState("");
+  const [resume, setResume] = useState(null);
+
+  // Fetch user data from localStorage
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+
+    if (storedUser) {
+      setName(storedUser.name || "");
+      setEmail(storedUser.email || "");
+      setPhone(storedUser.phone || "");
+    }
+  }, []);
 
   const handleEditToggle = (section) => {
     if (section === "personal") {
@@ -41,18 +52,6 @@ const Profile = () => {
     }
   };
 
-  const nameInitial = (name) => {
-    const nameSplit = name.split(" ");
-    if (nameSplit.length === 1) {
-      return nameSplit[0].charAt(0).toUpperCase();
-    } else {
-      return (
-        nameSplit[0].charAt(0).toUpperCase() +
-        nameSplit[nameSplit.length - 1].charAt(0).toUpperCase()
-      );
-    }
-  };
-
   const handleAddSkill = () => {
     if (newSkill.trim()) {
       setSkills([...skills, newSkill]);
@@ -65,16 +64,19 @@ const Profile = () => {
     setSkills(newSkills);
   };
 
+  const handleResumeChange = (e) => {
+    setResume(e.target.files[0]);
+  };
+
   return (
     <div>
       <div>
-        <h2 className="text-teal-dark text-3xl font-semibold mb-6">Profile</h2>
+        <h2 className="text-primary-text text-3xl font-semibold mb-6">
+          Profile
+        </h2>
         <div className="flex flex-col justify-center items-center mb-6">
-          <div className="inline-flex items-center justify-center w-20 h-20 overflow-hidden bg-teal-dark text-white font-bold rounded-full text-2xl">
-            <h1>{nameInitial(name)}</h1>
-          </div>
-          <div className="flex gap-5 justify-center items-center mt-4">
-            <div>
+          <div className="flex md:gap-4 md:justify-center justify-between items-center mt-4 mx-12">
+            <div className="">
               <label htmlFor="name"></label>
               <input
                 id="name"
@@ -82,16 +84,16 @@ const Profile = () => {
                 value={name}
                 onInput={(e) => setName(e.target.value)}
                 disabled={!editingName}
-                className={`text-xl font-bold bg-[#F6F6F6] ${
+                className={`text-xl font-bold bg-[#000]/0${
                   editingName
-                    ? "rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-dark shadow-sm focus:ring-[1px] focus:ring-teal font-normal"
+                    ? " rounded-md outline-none ring-1 ring-light-gray py-1.5 px-2 text-dark-gray shadow-sm focus:ring-[1px] focus:ring-gray font-normal bg-white"
                     : ""
                 }`}
               />
             </div>
             {editingName ? (
               <button
-                className="cursor-pointer text-sm font-medium py-1 px-4 border border-teal text-teal-dark hover:bg-teal-dark hover:text-white rounded-md"
+                className="cursor-pointer text-sm font-medium py-2.5 px-4 border border-black text-primary-text hover:bg-black hover:text-white rounded-md"
                 onClick={() => handleEditToggle("name")}
               >
                 Save
@@ -104,16 +106,16 @@ const Profile = () => {
             )}
           </div>
         </div>
-        <div className="grid md:grid-cols-2 gap-x-10 gap-y-8 text-gray-dark/80">
+        <div className="grid md:grid-cols-2 gap-x-10 gap-y-8 text-black/80">
           {/* PERSONAL INFORMATION */}
-          <div className="bg-white rounded-md p-4">
+          <div className="bg-white rounded-md p-4 border border-tertiary-text">
             <span className="flex justify-between">
-              <h2 className="text-xl font-semibold mb-3 text-gray-dark">
+              <h2 className="text-xl font-semibold mb-3 text-dark-gray">
                 Personal Details
               </h2>
               {editingPersonal ? (
                 <button
-                  className="cursor-pointer text-sm font-medium py-1 px-4 border border-teal text-teal-dark hover:bg-teal-dark hover:text-white rounded-md"
+                  className="cursor-pointer text-sm font-medium py-2.5 px-4 border border-black text-primary-text hover:bg-black hover:text-white rounded-md"
                   onClick={() => handleEditToggle("personal")}
                 >
                   Save
@@ -138,7 +140,7 @@ const Profile = () => {
                   disabled={!editingPersonal}
                   className={`border-0 bg-white ${
                     editingPersonal
-                      ? "rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-dark shadow-sm focus:ring-[1px] focus:ring-teal"
+                      ? "rounded-md outline-none ring-1 ring-light-gray py-1.5 px-2 text-dark-gray shadow-sm focus:ring-[1px] focus:ring-gray font-normal bg-white"
                       : ""
                   }`}
                 />
@@ -155,7 +157,7 @@ const Profile = () => {
                   disabled={!editingPersonal}
                   className={`border-0 bg-white ${
                     editingPersonal
-                      ? "rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-dark shadow-sm focus:ring-[1px] focus:ring-teal"
+                      ? "rounded-md outline-none ring-1 ring-light-gray py-1.5 px-2 text-dark-gray shadow-sm focus:ring-[1px] focus:ring-gray font-normal bg-white"
                       : ""
                   }`}
                 />
@@ -172,7 +174,7 @@ const Profile = () => {
                   disabled={!editingPersonal}
                   className={`border-0 bg-white ${
                     editingPersonal
-                      ? "rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-dark shadow-sm focus:ring-[1px] focus:ring-teal"
+                      ? "rounded-md outline-none ring-1 ring-light-gray py-1.5 px-2 text-dark-gray shadow-sm focus:ring-[1px] focus:ring-gray font-normal bg-white"
                       : ""
                   }`}
                 />
@@ -181,14 +183,14 @@ const Profile = () => {
           </div>
 
           {/* EXPERIENCE */}
-          <div className="bg-white rounded-md p-4">
+          <div className="bg-white rounded-md p-4 border border-tertiary-text">
             <span className="flex justify-between">
-              <h2 className="text-xl font-semibold mb-3 text-gray-dark">
+              <h2 className="text-xl font-semibold mb-3 text-dark-gray">
                 Experience
               </h2>
               {editingExperience ? (
                 <button
-                  className="cursor-pointer text-sm font-medium py-1 px-4 border border-teal text-teal-dark hover:bg-teal-dark hover:text-white rounded-md"
+                  className="cursor-pointer text-sm font-medium py-2.5 px-4 border border-black text-primary-text hover:bg-black hover:text-white rounded-md"
                   onClick={() => handleEditToggle("experience")}
                 >
                   Save
@@ -209,7 +211,7 @@ const Profile = () => {
                 disabled={!editingExperience}
                 className={`border-0 bg-white ${
                   editingExperience
-                    ? "rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-dark shadow-sm focus:ring-[1px] focus:ring-teal"
+                    ? "rounded-md outline-none ring-1 ring-light-gray py-1.5 px-2 text-dark-gray shadow-sm focus:ring-[1px] focus:ring-gray font-normal bg-white"
                     : ""
                 }`}
               />
@@ -217,14 +219,14 @@ const Profile = () => {
           </div>
 
           {/* JOB PREFERENCE */}
-          <div className="bg-white rounded-md p-4">
+          <div className="bg-white rounded-md p-4 border border-tertiary-text">
             <span className="flex justify-between">
-              <h2 className="text-xl font-semibold mb-3 text-gray-dark">
+              <h2 className="text-xl font-semibold mb-3 text-dark-gray">
                 Job Preferences
               </h2>
               {editingJobPreferences ? (
                 <button
-                  className="cursor-pointer text-sm font-medium py-1 px-4 border border-teal text-teal-dark hover:bg-teal-dark hover:text-white rounded-md"
+                  className="cursor-pointer text-sm font-medium py-2.5 px-4 border border-black text-primary-text hover:bg-black hover:text-white rounded-md"
                   onClick={() => handleEditToggle("jobPreferences")}
                 >
                   Save
@@ -247,7 +249,7 @@ const Profile = () => {
                 disabled={!editingJobPreferences}
                 className={`border-0 bg-white ${
                   editingJobPreferences
-                    ? "rounded-md outline-none ring-1 ring-gray-light py-1.5 px-2 text-gray-dark shadow-sm focus:ring-[1px] focus:ring-teal"
+                    ? "rounded-md outline-none ring-1 ring-light-gray py-1.5 px-2 text-dark-gray shadow-sm focus:ring-[1px] focus:ring-gray font-normal bg-white"
                     : ""
                 }`}
               />
@@ -255,14 +257,14 @@ const Profile = () => {
           </div>
 
           {/* RESUME */}
-          <div className="bg-white rounded-md p-4">
+          <div className="bg-white rounded-md p-4 border border-tertiary-text">
             <span className="flex justify-between">
-              <h2 className="text-xl font-semibold mb-3 text-gray-dark">
+              <h2 className="text-xl font-semibold mb-3 text-dark-gray">
                 Resume
               </h2>
               {editingResume ? (
                 <button
-                  className="cursor-pointer text-sm font-medium py-1 px-4 border border-teal text-teal-dark hover:bg-teal-dark hover:text-white rounded-md"
+                  className="cursor-pointer text-sm font-medium py-2.5 px-4 border border-black text-primary-text hover:bg-black hover:text-white rounded-md"
                   onClick={() => handleEditToggle("resume")}
                 >
                   Save
@@ -271,83 +273,82 @@ const Profile = () => {
                 <MdOutlineEdit
                   className="cursor-pointer text-xl"
                   onClick={() => handleEditToggle("resume")}
+                />
+              )}
+            </span>
+            <div className="mt-4">
+              {resume ? (
+                <div>
+                  <p>Uploaded Resume: {resume.name}</p>
+                </div>
+              ) : (
+                <input
+                  type="file"
+                  onChange={handleResumeChange}
+                  disabled={!editingResume}
+                  className={`border-0 bg-white ${
+                    editingResume
+                      ? "rounded-md outline-none ring-1 ring-light-gray py-1.5 px-2 text-dark-gray shadow-sm focus:ring-[1px] focus:ring-gray font-normal bg-white"
+                      : ""
+                  }`}
+                />
+              )}
+            </div>
+          </div>
+
+          {/* SKILLS */}
+          <div className="bg-white rounded-md p-4 border border-tertiary-text">
+            <span className="flex justify-between">
+              <h2 className="text-xl font-semibold mb-3 text-dark-gray">
+                Skills
+              </h2>
+              {editingSkills ? (
+                <button
+                  className="cursor-pointer text-sm font-medium py-2.5 px-4 border border-black text-primary-text hover:bg-black hover:text-white rounded-md"
+                  onClick={() => handleEditToggle("skills")}
+                >
+                  Save
+                </button>
+              ) : (
+                <MdOutlineEdit
+                  className="cursor-pointer text-xl"
+                  onClick={() => handleEditToggle("skills")}
                 />
               )}
             </span>
 
             <div className="mt-4">
-              <label className="sr-only" htmlFor="resumeUpload">
-                Resume
-              </label>
-              <input
-                type="file"
-                id="resumeUpload"
-                disabled={!editingResume}
-                className="text-sm text-gray-900 border border-gray-light rounded-md cursor-pointer bg-white p-2"
-              />
-            </div>
-          </div>
-
-          {/* SKILLS */}
-          <div className="bg-white rounded-md p-4">
-            <span className="flex justify-between">
-              <h2 className="text-xl font-semibold mb-3 text-gray-dark">
-                Skills
-              </h2>
-              {editingSkills ? (
-                <button
-                  className="cursor-pointer text-sm font-medium py-1 px-4 border border-teal text-teal-dark hover:bg-teal-dark hover:text-white rounded-md"
-                  onClick={() => handleEditToggle("skills")}
-                >
-                  Save
-                </button>
-              ) : (
-                <MdOutlineEdit
-                  className="cursor-pointer text-xl"
-                  onClick={() => handleEditToggle("skills")}
-                />
-              )}
-            </span>
-
-            <div className="flex flex-wrap gap-3 mt-4 items-center">
               {skills.map((skill, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <input
-                    type="text"
-                    value={skill}
-                    onChange={(e) => {
-                      const newSkills = [...skills];
-                      newSkills[index] = e.target.value;
-                      setSkills(newSkills);
-                    }}
-                    disabled={!editingSkills}
-                    className={`bg-teal-light text-teal rounded-md py-2 px-2.5 text-sm ${
-                      editingSkills ? "outline-none" : ""
-                    }`}
-                  />
+                <div
+                  key={index}
+                  className="flex justify-between items-center mb-2"
+                >
+                  <span>{skill}</span>
                   {editingSkills && (
-                    <p
-                      className="cursor-pointer text-gray text-sm font-medium"
+                    <button
+                      className="text-[#d42c2c]"
                       onClick={() => handleDeleteSkill(index)}
                     >
-                      X
-                    </p>
+                      Delete
+                    </button>
                   )}
                 </div>
               ))}
+
               {editingSkills && (
-                <div className="flex items-center">
+                <div className="flex items-center mt-4">
                   <input
                     type="text"
                     value={newSkill}
                     onChange={(e) => setNewSkill(e.target.value)}
-                    placeholder="New skill"
-                    className="bg-white border border-gray-light rounded-md py-2 px-2.5 w-28 text-sm outline-none"
+                    className="border border-gray rounded-md py-1 px-2 mr-2"
                   />
-                  <MdAdd
-                    className="cursor-pointer text-teal ml-2"
+                  <button
+                    className="bg-black text-white rounded-md py-2.5 px-3"
                     onClick={handleAddSkill}
-                  />
+                  >
+                    <MdAdd />
+                  </button>
                 </div>
               )}
             </div>

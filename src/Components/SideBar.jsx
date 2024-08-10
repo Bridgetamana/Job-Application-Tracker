@@ -125,50 +125,35 @@ const SideBar = () => {
             <div className="my-4 rounded shadow-sm absolute bottom-14 bg-[#19211D] w-44 lg:hidden">
               <ul className="py-3 text-white space-y-2">
                 {dropdownMenu.map((item) => (
-                  <li
+                  <Link to={item.path}
                     key={item.id}
                     className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer hover:bg-[#E0E1E0] hover:text-primary-text transition-colors duration-300"
                     onClick={toggleMenu}
                   >
                     <span className="text-xl">{item.icon}</span>
-                    <Link to={item.path} className="text-sm">
+                    <div className="text-sm">
                       {item.label}
-                    </Link>
-                  </li>
+                    </div>
+                  </Link>
                 ))}
               </ul>
             </div>
           )}
-          <div className="my-4 rounded shadow-sm absolute bottom-1 bg-[#19211D] w-44 hidden lg:block">
+          <div className="my-4 rounded shadow-sm absolute bottom-1 bg-[#19211D] w-44">
             <ul className="py-3 text-white space-y-2">
               {dropdownMenu.map((item) => (
-                <li
+                <Link to={item.path}
                   key={item.id}
                   className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer hover:bg-[#E0E1E0] hover:text-primary-text transition-colors duration-300"
                   onClick={toggleMenu}
                 >
                   <span className="text-xl">{item.icon}</span>
-                  <Link to={item.path} className="text-sm">
+                  <div to={item.path} className="text-sm">
                     {item.label}
-                  </Link>
-                </li>
+                  </div>
+                </Link>
               ))}
             </ul>
-          </div>
-          <div
-            className="flex items-center gap-28 hover:cursor-pointer lg:hidden"
-            onClick={toggleDropdown}
-          >
-            <span className="bg-green-light text-green rounded-full p-2 text-sm">
-              BA
-            </span>
-            <span
-              className={`transition-transform duration-300 text-white ${
-                dropdownVisible ? "rotate-180" : "rotate-0"
-              }`}
-            >
-              {dropdownVisible ? <IoIosArrowUp /> : <IoIosArrowDown />}
-            </span>
           </div>
         </div>
       </div>

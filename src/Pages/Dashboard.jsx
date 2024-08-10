@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Doughnut, Pie } from "react-chartjs-2";
 import { LuUserCircle2, LuSearch } from "react-icons/lu";
 import { FaLongArrowAltRight, FaRegLightbulb } from "react-icons/fa";
@@ -8,6 +8,19 @@ import DashboardCard from "../Components/DashboardCard";
 import "chart.js/auto";
 
 const Dashboard = () => {
+
+  const [userName, setUserName] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser && storedUser.name) {
+      setUserName(storedUser.name);
+    }
+    if (storedUser && storedUser.email) {
+      setUserEmail(storedUser.email);
+    }
+  }, []);
   //chart data
   const applicationData = [
     { status: "Applied", count: 12 },
@@ -105,15 +118,12 @@ const Dashboard = () => {
     <div>
       <div className="mb-5 flex flex-wrap justify-between items-center">
         <h1 className="font-bold text-[#2A2A2A] text-xl lg:text-2xl">
-          {getGreeting()} Bridget,
+          {getGreeting()} {userName || "User"},
         </h1>
         <div className="gap-2 items-center border-l-2 border-[#5D6661] pl-4 hidden lg:flex">
-          <span className="bg-green-light text-green rounded-full p-2 text-sm">
-            BA
-          </span>
           <div>
-            <p className="text-[12px]">Bridget Amana</p>
-            <p className="text-[12px]">amanabridget03@gmail.com</p>
+            <p className="text-[12px]">{userName || "User"}</p>
+            <p className="text-[12px]">{userEmail || "you@beautiful.com"}</p>
           </div>
         </div>
       </div>
@@ -291,7 +301,8 @@ const Dashboard = () => {
                   >
                     <p>{resource.title}</p>
                     <a
-                      href={resource.viewUrl} target="_blank"
+                      href={resource.viewUrl}
+                      target="_blank"
                       className="hidden md:flex items-center gap-2 bg-white rounded-full border p-1.5 pl-4 hover:bg-dark-gray hover:text-white hover:shadow-md group"
                     >
                       <p className="hidden md:flex">View</p>
@@ -300,7 +311,8 @@ const Dashboard = () => {
                       </div>
                     </a>
                     <a
-                      href={resource.viewUrl} target="_blank"
+                      href={resource.viewUrl}
+                      target="_blank"
                       className="md:hidden p-1.5 hover:bg-dark-gray rounded-full hover:text-white border"
                     >
                       <FaLongArrowAltRight />

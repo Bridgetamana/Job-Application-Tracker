@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import DeleteAccountModal from "../Components/DeleteAccountModal";
 
@@ -25,7 +25,7 @@ const Settings = () => {
               type="password"
               placeholder="Current Password"
               required
-              className="border border-gray-light text-gray rounded-md p-3 outline-none focus:ring-[1px] focus:ring-teal w-full"
+              className="border border-gray-light text-gray rounded-md p-3 outline-none focus:ring-[1px] focus:ring-gray w-full"
             />
           </div>
           {/* New Password */}
@@ -79,7 +79,7 @@ const Settings = () => {
                 type={isPasswordHidden ? "password" : "text"}
                 placeholder="New Password"
                 required
-                className="border border-gray-light text-gray rounded-md p-3 outline-none focus:ring-[1px] focus:ring-teal w-full "
+                className="border border-gray-light text-gray rounded-md p-3 outline-none focus:ring-[1px] focus:ring-gray w-full "
               />
             </div>
           </div>
@@ -136,7 +136,7 @@ const Settings = () => {
                 type={isConfirmPasswordHidden ? "password" : "text"}
                 placeholder="Re enter New Password"
                 required
-                className="border border-gray-light text-gray rounded-md p-3 outline-none focus:ring-[1px] focus:ring-teal w-full"
+                className="border border-gray-light text-gray rounded-md p-3 outline-none focus:ring-[1px] focus:ring-gray w-full"
               />
             </div>
           </div>
@@ -144,13 +144,13 @@ const Settings = () => {
           <div className="mt-4 font-semibold gap-4 flex">
             <Link
               to="/dashboard/dashboard"
-              className="bg-gray-light text-gray-dark rounded-md py-2 px-4"
+              className="bg-light-gray text-dark-gray rounded-md py-2 px-4"
             >
               Cancel
             </Link>
             <button
               type="submit"
-              className="bg-teal text-white rounded-md py-2 px-6 flex justify-center items-center gap-3 text-sm"
+              className="bg-black text-white rounded-md py-2 px-6 flex justify-center items-center gap-3 text-sm"
             >
               Save
             </button>
@@ -160,13 +160,11 @@ const Settings = () => {
       {/* DELETE USER ACCOUNT */}
 
       <div>
-        <h2 className="text-teal-dark text-3xl font-semibold">
-          Delete Account:
-        </h2>
+        <h2 className=" text-3xl font-semibold">Delete Account:</h2>
         <p className="text-gray mb-6">Permanently delete your account.</p>
         <button
           type="submit"
-          className="border border-red text-red rounded-md py-2 px-2.5 flex justify-center items-center gap-3"
+          className="border border-[#af1818] text-[#af1818] rounded-md py-2 px-2.5 flex justify-center items-center gap-3"
           onClick={handleDeleteModal}
         >
           Delete my Account
