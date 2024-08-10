@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaPlus, FaList, FaThLarge } from "react-icons/fa";
 import { LuSearch } from "react-icons/lu";
 import { MdClose } from "react-icons/md";
@@ -6,52 +6,36 @@ import AddNewJobs from "../Components/AddNewJob";
 import EditJobModal from "../Components/EditJobModal";
 
 const Applications = () => {
-  // usestate
   const [showJobModal, setShowJobModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [selectedJob, setSelectedJob] = useState(null);
-  const [jobs, setJobs] = useState([
-    {
-      id: 1,
-      jobTitle: "Accountant",
-      companyName: "You Bank",
-      applicationDate: "2024-06-05",
-      status: "applied",
-    },
-    {
-      id: 3,
-      jobTitle: "Accountant",
-      companyName: "You Bank",
-      applicationDate: "2024-06-05",
-      status: "offered",
-    },
-    {
-      id: 3,
-      jobTitle: "Accountant",
-      companyName: "You Bank",
-      applicationDate: "2024-06-05",
-      status: "rejected",
-    },
-  ]);
+  const [jobs, setJobs] = useState([]);
   const [activeTab, setActiveTab] = useState("all");
   const [checkedJobs, setCheckedJobs] = useState([]);
   const [isCardView, setIsCardView] = useState(true);
 
-  // Open job modal function
+  useEffect(() => {
+    // Load jobs from localStorage when component mounts
+    const storedJobs = JSON.parse(localStorage.getItem("jobs")) || [];
+    setJobs(storedJobs);
+  }, []);
+
+  useEffect(() => {
+    // Save jobs to localStorage whenever it changes
+    localStorage.setItem("jobs", JSON.stringify(jobs));
+  }, [jobs]);
+
   const handleOpenJobModal = () => {
     setShowJobModal(true);
   };
 
   const handleAddJob = (newJob) => {
-    const updatedJobs = [...jobs, newJob];
-    setJobs(updatedJobs);
+    const jobWithId = { ...newJob, id: Date.now() }; // Ensure each job has a unique ID
+    setJobs([...jobs, jobWithId]);
   };
 
   const handleEditJob = (updatedJob) => {
-    const updatedJobs = jobs.map((job) =>
-      job.id === updatedJob.id ? updatedJob : job
-    );
-    setJobs(updatedJobs);
+    setJobs(jobs.map((job) => (job.id === updatedJob.id ? updatedJob : job)));
   };
 
   const handleOpenEditModal = (job) => {
@@ -60,21 +44,19 @@ const Applications = () => {
   };
 
   const handleDeleteJob = (jobToDelete) => {
-    const updatedJobs = jobs.filter((job) => job !== jobToDelete);
-    setJobs(updatedJobs);
-    localStorage.setItem("jobs", JSON.stringify(updatedJobs));
+    setJobs(jobs.filter((job) => job.id !== jobToDelete.id)); // Compare by ID
   };
 
   const handleCheckJob = (job) => {
     setCheckedJobs((prev) =>
-      prev.includes(job) ? prev.filter((j) => j !== job) : [...prev, job]
+      prev.includes(job) ? prev.filter((j) => j.id !== job.id) : [...prev, job]
     );
   };
 
   return (
     <div className="h-screen">
       <span className="flex justify-between items-center mb-4">
-        <h2 className="3xl font-semibold">Applications</h2>
+        <h2 className="text-3xl font-semibold">Applications</h2>
         <div className="flex items-center gap-4">
           <span className="hidden md:flex items-center gap-2">
             <p className="text-secondary-text">Total Applications:</p>
@@ -106,7 +88,7 @@ const Applications = () => {
 
       <div className="flex justify-between mb-4">
         <form className="flex items-center gap-2 border border-tertiary-text rounded-lg pl-2 py-1.5 w-36">
-          <label className="sr-only">search</label>
+          <label className="sr-only">Search</label>
           <LuSearch className="text-gray text-sm" />
           <input
             type="search"
@@ -127,14 +109,7 @@ const Applications = () => {
         </div>
       </div>
 
-      <div
-        className="mb-4 border-b overflow-auto"
-        style={{
-          WebkitOverflowScrolling: "touch",
-          MsOverflowStyle: "none",
-          scrollbarWidth: "none",
-        }}
-      >
+      <div className="mb-4 border-b overflow-auto">
         <ul className="flex text-sm font-medium text-center">
           {["all", "applied", "interview", "offered", "rejected"].map((tab) => (
             <li className="me-2" key={tab}>
@@ -151,14 +126,14 @@ const Applications = () => {
         </ul>
       </div>
 
-{/* Job Card view */}
+      {/* Job Card view */}
       {isCardView ? (
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 mb-12">
           {jobs
             .filter((job) => activeTab === "all" || job.status === activeTab)
-            .map((job, index) => (
+            .map((job) => (
               <div
-                key={index}
+                key={job.id}
                 className="rounded-lg overflow-hidden mt-4 cursor-pointer hover:shadow-lg bg-[#F8F9F8] border border-light-gray"
                 onClick={() => handleOpenEditModal(job)}
               >
@@ -186,25 +161,17 @@ const Applications = () => {
               </div>
             ))}
         </div>
-      ) : 
-      // Job List view
-      (
-        <div
-          className="overflow-x-auto rounded-t-2xl"
-          style={{
-            WebkitOverflowScrolling: "touch",
-            MsOverflowStyle: "none",
-            scrollbarWidth: "none",
-          }}
-        >
+      ) : (
+        // Job List view
+        <div className="overflow-x-auto rounded-t-2xl">
           <table className="w-full text-sm text-left">
-            <thead className="bg-[#E2E6E4] text-primary-text ">
+            <thead className="bg-[#E2E6E4] text-primary-text">
               <tr>
                 <th className="px-6 py-3"></th>
                 <th className="px-6 py-3">Title</th>
-                <th className=" px-6 py-3">Company</th>
+                <th className="px-6 py-3">Company</th>
                 <th className="px-6 py-3">Status</th>
-                <th className=" px-6 py-3">Date</th>
+                <th className="px-6 py-3">Date</th>
               </tr>
             </thead>
             <tbody>
@@ -212,13 +179,15 @@ const Applications = () => {
                 .filter(
                   (job) => activeTab === "all" || job.status === activeTab
                 )
-                .map((job, index) => (
-                  <tr key={index} className="border-b border-light-gray">
+                .map((job) => (
+                  <tr key={job.id} className="border-b border-light-gray">
                     <td className="px-6 py-4 text-center">
                       <input
                         type="checkbox"
                         className="form-checkbox"
-                        checked={checkedJobs.includes(job)}
+                        checked={checkedJobs.some(
+                          (checkedJob) => checkedJob.id === job.id
+                        )}
                         onChange={() => handleCheckJob(job)}
                       />
                     </td>
@@ -241,9 +210,24 @@ const Applications = () => {
             <div className="flex justify-end mt-4 absolute right-0 mr-5">
               <button
                 className="bg-[#c40707] text-white py-1 px-4 rounded text-sm"
-                onClick={() => checkedJobs.forEach(handleDeleteJob)}
+                onClick={() => {
+                  const confirmDelete = window.confirm(
+                    "Are you sure you want to delete the selected jobs?"
+                  );
+                  if (confirmDelete) {
+                    setJobs(
+                      jobs.filter(
+                        (job) =>
+                          !checkedJobs.some(
+                            (checkedJob) => checkedJob.id === job.id
+                          )
+                      )
+                    );
+                    setCheckedJobs([]);
+                  }
+                }}
               >
-                Delete
+                Delete Selected
               </button>
             </div>
           )}
