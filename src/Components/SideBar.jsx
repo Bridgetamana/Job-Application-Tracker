@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { SidebarMenuItem } from "./SidebarMenuItem";
-import { RiLogoutCircleRFill } from "react-icons/ri";
-import { RiSettings5Fill } from "react-icons/ri";
+import { RiLogoutCircleRFill, RiSettings5Fill } from "react-icons/ri";
 import { BsLayoutSidebarInset } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
 
 const SideBar = () => {
-  //bottom dropdown
   const dropdownMenu = [
     {
       id: 0,
@@ -22,18 +20,15 @@ const SideBar = () => {
     },
   ];
 
-  //usestates
   const menuItems = SidebarMenuItem();
   const [openSidebar, setOpenSidebar] = useState(false);
   const [pageTitle, setPageTitle] = useState("");
   const location = useLocation();
 
-  // toggle functions
   const toggleMenu = () => {
     setOpenSidebar(!openSidebar);
   };
 
-  // find page title function
   const findPageTitle = () => {
     const currentItem = menuItems.find((item) =>
       location.pathname.endsWith(item.path)
@@ -75,7 +70,7 @@ const SideBar = () => {
 
       {openSidebar && (
         <div
-          className="fixed inset-0 bg-black/60 z-40"
+          className="fixed inset-0 bg-black/60 z-40 lg:hidden"
           onClick={toggleMenu}
         ></div>
       )}
@@ -83,12 +78,12 @@ const SideBar = () => {
       <div
         className={`fixed h-full top-0 left-0 bottom-0 z-40 w-56 py-4 lg:py-6 transition-transform 
  ${
-   openSidebar ? "translate-x-0" : "-translate-x-full lg:block"
- } bg-[#19211D] lg:translate-x-0`}
+   openSidebar ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+ } bg-[#19211D]`}
       >
         <div className="rounded-[20px] overflow-y-auto px-4 bg-[#19211D] text-white h-full">
           <div className="flex items-center justify-between pl-6">
-            <p className="text-sm">Job Tracker</p>
+            <p className="">Job Tracker</p>
             <button
               className="text-xl lg:hidden"
               title="Minimize Sidebar"
@@ -113,22 +108,23 @@ const SideBar = () => {
             ))}
           </ul>
         </div>
-          <div className="my-4 rounded shadow-sm absolute bottom-1 bg-[#19211D] w-44">
-            <ul className="py-3 text-white space-y-2">
-              {dropdownMenu.map((item) => (
-                <Link to={item.path}
-                  key={item.id}
-                  className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer hover:bg-[#E0E1E0] hover:text-primary-text transition-colors duration-300"
-                  onClick={toggleMenu}
-                >
-                  <span className="text-xl">{item.icon}</span>
-                  <div to={item.path} className="text-sm">
-                    {item.label}
-                  </div>
-                </Link>
-              ))}
-            </ul>
-          </div>
+        <div className="my-4 rounded shadow-sm absolute bottom-1 bg-[#19211D] w-44">
+          <ul className="py-3 text-white space-y-2">
+            {dropdownMenu.map((item) => (
+              <Link
+                to={item.path}
+                key={item.id}
+                className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer hover:bg-[#E0E1E0] hover:text-primary-text transition-colors duration-300"
+                onClick={toggleMenu}
+              >
+                <span className="text-xl">{item.icon}</span>
+                <div to={item.path} className="text-sm">
+                  {item.label}
+                </div>
+              </Link>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );
