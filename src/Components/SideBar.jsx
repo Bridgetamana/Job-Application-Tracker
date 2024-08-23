@@ -3,43 +3,29 @@ import { SidebarMenuItem } from "./SidebarMenuItem";
 import { RiLogoutCircleRFill, RiSettings5Fill } from "react-icons/ri";
 import { BsLayoutSidebarInset } from "react-icons/bs";
 import { Link, useLocation } from "react-router-dom";
+import LogoutModal from "./LogoutModal";
 
 const SideBar = () => {
-  const dropdownMenu = [
-    {
-      id: 0,
-      label: "Settings",
-      icon: <RiSettings5Fill />,
-      path: "settings",
-    },
-    {
-      id: 1,
-      label: "Log Out",
-      icon: <RiLogoutCircleRFill />,
-      path: "/login",
-    },
-  ];
-
   const menuItems = SidebarMenuItem();
   const [openSidebar, setOpenSidebar] = useState(false);
   const [pageTitle, setPageTitle] = useState("");
+  const [openLogoutModal, setOpenLogoutModal] = useState(false);
   const location = useLocation();
 
   const toggleMenu = () => {
     setOpenSidebar(!openSidebar);
   };
 
+  const toggleLogoutModal = () => {
+    setOpenLogoutModal(!openLogoutModal);
+  };
+
   const findPageTitle = () => {
     const currentItem = menuItems.find((item) =>
       location.pathname.endsWith(item.path)
     );
-    const currentDropdownItem = dropdownMenu.find((item) =>
-      location.pathname.endsWith(item.path)
-    );
     if (currentItem) {
       setPageTitle(currentItem.label);
-    } else if (currentDropdownItem) {
-      setPageTitle(currentDropdownItem.label);
     } else {
       setPageTitle("");
     }
@@ -110,22 +96,39 @@ const SideBar = () => {
         </div>
         <div className="my-4 rounded shadow-sm absolute bottom-1 bg-[#19211D] w-44">
           <ul className="py-3 text-white space-y-2">
-            {dropdownMenu.map((item) => (
+            <li>
               <Link
-                to={item.path}
-                key={item.id}
+                to="settings"
                 className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer hover:bg-[#E0E1E0] hover:text-primary-text transition-colors duration-300"
                 onClick={toggleMenu}
               >
-                <span className="text-xl">{item.icon}</span>
-                <div to={item.path} className="text-sm">
-                  {item.label}
-                </div>
+                <span className="text-xl">
+                  <RiSettings5Fill />
+                </span>
+                <div className="text-sm">Settings</div>
               </Link>
-            ))}
+            </li>
+            <li>
+              <div
+                className="flex items-center gap-2 py-2 pl-5 rounded-full cursor-pointer hover:bg-[#E0E1E0] hover:text-primary-text transition-colors duration-300"
+                onClick={() => {
+                  toggleMenu();
+                  toggleLogoutModal();
+                }}
+              >
+                <span className="text-xl">
+                  <RiLogoutCircleRFill />
+                </span>
+                <div className="text-sm">Logout</div>
+              </div>
+            </li>
           </ul>
         </div>
       </div>
+
+      {openLogoutModal && (
+        <LogoutModal setOpenLogoutModal={setOpenLogoutModal} />
+      )}
     </div>
   );
 };
